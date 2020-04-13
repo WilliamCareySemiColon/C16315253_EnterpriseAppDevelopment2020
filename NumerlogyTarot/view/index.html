@@ -4,9 +4,6 @@
     <title>Numerlogy and Tarot</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--Script files for the functionality of the application-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--The section area to capture the css files-->
     <link
       rel="stylesheet"
@@ -113,8 +110,12 @@
             <br />
             <!--button areas of the section-->
             <button class="btn btn-warning">Clear</button>
-            <button class="btn btn-success">Login</button>
-            <button class="btn btn-default">Register Instead</button>
+            <button class="btn btn-success" id="login">
+              Login
+            </button>
+            <button class="btn btn-default" onclick="ClickMethod()">
+              Register Instead
+            </button>
           </div>
         </form>
       </div>
@@ -123,6 +124,10 @@
       <h3>
         Created by William Carey,C16315253 &copy; 2020
       </h3>
+      <!--Script files for the functionality of the application and to be able to use the JQuery-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <script src="JS/index.js"></script>
     </footer>
   </body>
 </html>
