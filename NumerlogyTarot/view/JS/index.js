@@ -1,7 +1,3 @@
-$("#login").click(function() {
-  alert("Hello world");
-});
-
 //The login button fields
 $("#RegisterInsteadBtn").click(function() {
   $("#Register").show();
@@ -19,7 +15,11 @@ $("#RegisterClearBtn").click(function() {
   document.getElementById("conpass").value = "";
 });
 
-////register fields instead
+$("#LoginBtn").click(function() {
+  alert("test method in place");
+});
+
+//register button fields instead
 $("#LoginInsteadBtn").click(function() {
   $("#Login").show();
   $("#Register").hide();
@@ -29,6 +29,7 @@ $("#LoginClearBtn").click(function() {
   document.getElementById("loguname").value = "";
   document.getElementById("logpass").value = "";
 });
-// $("#Register")
 
-// $("#Login")
+$("#RegisterBtn").click(function() {
+  alert("test method for now");
+});

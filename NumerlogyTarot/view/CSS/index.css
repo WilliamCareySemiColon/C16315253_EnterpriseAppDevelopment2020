@@ -1,6 +1,7 @@
 body {
   background-color: darkblue;
   color: white;
+  overflow: none;
 }
 
 .personalHeaderFooter h2,
@@ -10,8 +11,4 @@ body {
 
 .compulsory {
   color: orange;
-}
-#Register,
-#Login {
-  float: center;
 }
