@@ -16,9 +16,39 @@
     <section>
       <div id="Register">
         <h3>Register for the application</h3>
+        <form action="/action_page.php">
+          <label for="fname">First name:</label><br />
+          <input type="text" id="fname" name="fname" /><br />
+          <label for="mname">Middle name:</label><br />
+          <input type="text" id="mname" name="mname" /><br />
+          <label for="lname">Last name:</label><br />
+          <input type="text" id="lname" name="lname" /><br />
+          <label for="reguname">Username:</label><br />
+          <input type="text" id="reguname" name="reguname" /><br />
+          <label for="email">Email:</label><br />
+          <input type="email" id="email" name="email" /><br />
+          <label for="DOB">Date of Birth:</label><br />
+          <input type="date" id="DOB" name="DOB" /><br />
+          <label for="regpass">Password:</label><br />
+          <input type="password" id="regpass" name="regpass" /><br />
+          <label for="conpass">Confirm Password:</label><br />
+          <input type="password" id="conpass" name="conpass" /><br />
+          <br />
+          <input type="reset" value="Clear" />
+          <input type="submit" value="Register" />
+        </form>
       </div>
       <div id="Login">
         <h3>Login for the application</h3>
+        <form action="/action_page.php">
+          <label for="loguname">Username:</label><br />
+          <input type="text" id="loguname" name="loguname" /><br />
+          <label for="regpass">Password:</label><br />
+          <input type="password" id="conpass" name="conpass" /><br />
+          <br />
+          <input type="reset" value="Clear" />
+          <input type="submit" value="Login" />
+        </form>
       </div>
     </section>
     <footer>

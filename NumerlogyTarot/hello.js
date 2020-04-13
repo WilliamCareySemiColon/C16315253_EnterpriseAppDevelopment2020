@@ -30,5 +30,4 @@ app.get("/", function(req, res) {
       return res.end();
     }
   });
-  //res.send("This is the root route!");
 });
