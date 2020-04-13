@@ -4,57 +4,122 @@
     <title>Numerlogy and Tarot</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--Script files for the functionality of the application-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--The section area to capture the css files-->
-    <link rel = "stylesheet" type = "text/css" href = "CSS/index.css"
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="CSS/index.css" />
   </head>
   <body>
-    <header>
-      <h1>
-        Welcome to the Numerlogy and Tarot
-      </h1>
+    <!--The header section-->
+    <header class="col-sm-1 col-md-6 col-lg-12 personalHeaderFooter">
+      <h2>
+        Welcome to the Numerlogy and Tarot Application
+      </h2>
     </header>
-    <section>
-      <div id="Register">
+    <!--The application section-->
+    <section class="col-sm-1 col-md-6 col-lg-12">
+      <!--The register section-->
+      <div id="Register" class="col-sm-1 col-md-6 ">
         <h3>Register for the application</h3>
-        <form action="/action_page.php">
-          <label for="fname">First name:</label><br />
-          <input type="text" id="fname" name="fname" /><br />
-          <label for="mname">Middle name:</label><br />
-          <input type="text" id="mname" name="mname" /><br />
-          <label for="lname">Last name:</label><br />
-          <input type="text" id="lname" name="lname" /><br />
-          <label for="reguname">Username:</label><br />
-          <input type="text" id="reguname" name="reguname" /><br />
-          <label for="email">Email:</label><br />
-          <input type="email" id="email" name="email" /><br />
-          <label for="DOB">Date of Birth:</label><br />
-          <input type="date" id="DOB" name="DOB" /><br />
-          <label for="regpass">Password:</label><br />
-          <input type="password" id="regpass" name="regpass" /><br />
-          <label for="conpass">Confirm Password:</label><br />
-          <input type="password" id="conpass" name="conpass" /><br />
-          <br />
-          <input type="reset" value="Clear" />
-          <input type="submit" value="Register" />
+        <form>
+          <div class="form-group col-sm-1 col-md-6 ">
+            <!--The name of the user, which is the first name, middle name, surname and username-->
+            <label for="fname">First name:</label><br />
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              class="form-control"
+            /><br />
+            <label for="mname">Middle name:</label><br />
+            <input
+              type="text"
+              id="mname"
+              name="mname"
+              class="form-control"
+            /><br />
+            <label for="lname">Last name:</label><br />
+            <input
+              type="text"
+              id="lname"
+              name="lname"
+              class="form-control"
+            /><br />
+            <label for="reguname">Username:</label><br />
+            <input
+              type="text"
+              id="reguname"
+              name="reguname"
+              class="form-control"
+            /><br />
+            <label for="email">Email:</label><br />
+            <!--The email, DOB, password and confirm password-->
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+            /><br />
+            <label for="DOB">Date of Birth:</label><br />
+            <input type="date" id="DOB" name="DOB" class="form-control" /><br />
+            <label for="regpass">Password:</label><br />
+            <input
+              type="password"
+              id="regpass"
+              name="regpass"
+              class="form-control"
+            /><br />
+            <label for="conpass">Confirm Password:</label><br />
+            <input
+              type="password"
+              id="conpass"
+              name="conpass"
+              class="form-control"
+            /><br />
+            <br />
+            <!--button areas of the section-->
+            <button class="btn btn-default">Clear</button>
+            <button class="btn btn-default">Register</button><br /><br />
+          </div>
         </form>
       </div>
-      <div id="Login">
+      <!--The login section-->
+      <div id="Login" class="col-sm-1 col-md-6 ">
         <h3>Login for the application</h3>
-        <form action="/action_page.php">
-          <label for="loguname">Username:</label><br />
-          <input type="text" id="loguname" name="loguname" /><br />
-          <label for="regpass">Password:</label><br />
-          <input type="password" id="conpass" name="conpass" /><br />
-          <br />
-          <input type="reset" value="Clear" />
-          <input type="submit" value="Login" />
+        <form>
+          <div class="form-group col-sm-1 col-md-6">
+            <!--capture the username and passsword details-->
+            <label for="loguname">Username:</label><br />
+            <input
+              type="text"
+              id="loguname"
+              name="loguname"
+              class="form-control"
+            /><br />
+            <label for="logpass">Password:</label><br />
+            <input
+              type="password"
+              id="logpass"
+              name="logpass"
+              class="form-control"
+            /><br />
+            <br />
+            <!--button areas of the section-->
+            <button class="btn btn-default">Clear</button>
+            <button class="btn btn-default">Login</button>
+          </div>
         </form>
       </div>
     </section>
-    <footer>
+    <footer class="col-sm-1 col-md-6 col-lg-12 personalHeaderFooter">
       <h3>
-        Numerlogy and Tarot Continous Assignment site Created by William Carey
-        &copy; 2020
+        Numerlogy and Tarot Continous Assignment site created by William
+        Carey,C16315253 &copy; 2020
       </h3>
     </footer>
   </body>
