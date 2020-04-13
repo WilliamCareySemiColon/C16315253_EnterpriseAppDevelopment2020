@@ -13,114 +13,126 @@
   </head>
   <body>
     <!--The header section-->
-    <header class="col-sm-1 col-md-6 col-lg-12 personalHeaderFooter">
+    <header class="col-sm-12 personalHeaderFooter">
       <h2>
         Welcome to the Numerlogy and Tarot Application
       </h2>
     </header>
     <!--The application section-->
-    <section class="col-sm-1 col-md-6 col-lg-12">
+    <section class="col-sm-12">
       <!--The register section-->
-      <div id="Register" class="col-sm-1 col-md-6 ">
+      <div id="Register" class="col-sm-12" hidden="hidden">
         <h3>Register for the application</h3>
-        <form>
-          <div class="form-group col-sm-1 col-md-6 ">
-            <!--The name of the user, which is the first name, middle name, surname and username-->
-            <label for="fname">First name:</label><br />
-            <input
-              type="text"
-              id="fname"
-              name="fname"
-              class="form-control"
-            /><br />
-            <label for="mname">Middle name:</label><br />
-            <input
-              type="text"
-              id="mname"
-              name="mname"
-              class="form-control"
-            /><br />
-            <label for="lname">Last name:</label><br />
-            <input
-              type="text"
-              id="lname"
-              name="lname"
-              class="form-control"
-            /><br />
-            <label for="reguname">Username:</label><br />
-            <input
-              type="text"
-              id="reguname"
-              name="reguname"
-              class="form-control"
-            /><br />
-            <label for="email">Email:</label><br />
-            <!--The email, DOB, password and confirm password-->
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-control"
-            /><br />
-            <label for="DOB">Date of Birth:</label><br />
-            <input type="date" id="DOB" name="DOB" class="form-control" /><br />
-            <label for="regpass">Password:</label><br />
-            <input
-              type="password"
-              id="regpass"
-              name="regpass"
-              class="form-control"
-            /><br />
-            <label for="conpass">Confirm Password:</label><br />
-            <input
-              type="password"
-              id="conpass"
-              name="conpass"
-              class="form-control"
-            /><br />
-            <br />
-            <!--button areas of the section-->
-            <button class="btn btn-warning">Clear</button>
-            <button class="btn btn-success">Register</button>
-            <button class="btn btn-default">Login Instead</button>
-            <br /><br />
-          </div>
-        </form>
+
+        <div class="form-group col-sm-6 ">
+          <!--The name of the user, which is the first name, middle name, surname and username-->
+          <label for="fname"
+            >First name: <strong class="compulsory">*</strong> </label
+          ><br />
+          <input
+            type="text"
+            id="fname"
+            name="fname"
+            class="form-control"
+          /><br />
+          <label for="mname">Middle name:</label><br />
+          <input
+            type="text"
+            id="mname"
+            name="mname"
+            class="form-control"
+          /><br />
+          <label for="lname"
+            >Last name: <strong class="compulsory">*</strong></label
+          ><br />
+          <input
+            type="text"
+            id="lname"
+            name="lname"
+            class="form-control"
+          /><br />
+          <label for="reguname"
+            >Username: <strong class="compulsory">*</strong></label
+          ><br />
+          <input
+            type="text"
+            id="reguname"
+            name="reguname"
+            class="form-control"
+          /><br />
+          <label for="email">Email: <strong class="compulsory">*</strong></label
+          ><br />
+          <!--The email, DOB, password and confirm password-->
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+          /><br />
+          <label for="DOB"
+            >Date of Birth: <strong class="compulsory">*</strong></label
+          ><br />
+          <input type="date" id="DOB" name="DOB" class="form-control" /><br />
+          <label for="regpass"
+            >Password: <strong class="compulsory">*</strong></label
+          ><br />
+          <input
+            type="password"
+            id="regpass"
+            name="regpass"
+            class="form-control"
+          /><br />
+          <label for="conpass"
+            >Confirm Password: <strong class="compulsory">*</strong></label
+          ><br />
+          <input
+            type="password"
+            id="conpass"
+            name="conpass"
+            class="form-control"
+          /><br />
+          <br />
+          <!--button areas of the section-->
+          <button class="btn btn-warning">Clear</button>
+          <button class="btn btn-success">Register</button>
+          <button class="btn btn-default" id="LoginInstead">
+            Login Instead
+          </button>
+          <br /><br />
+        </div>
       </div>
       <!--The login section-->
-      <div id="Login" class="col-sm-1 col-md-6 ">
+      <div id="Login" class="col-sm-12 ">
         <h3>Login for the application</h3>
-        <form>
-          <div class="form-group col-sm-1 col-md-6">
-            <!--capture the username and passsword details-->
-            <label for="loguname">Username:</label><br />
-            <input
-              type="text"
-              id="loguname"
-              name="loguname"
-              class="form-control"
-            /><br />
-            <label for="logpass">Password:</label><br />
-            <input
-              type="password"
-              id="logpass"
-              name="logpass"
-              class="form-control"
-            /><br />
-            <br />
-            <!--button areas of the section-->
-            <button class="btn btn-warning">Clear</button>
-            <button class="btn btn-success" id="login">
-              Login
-            </button>
-            <button class="btn btn-default" onclick="ClickMethod()">
-              Register Instead
-            </button>
-          </div>
-        </form>
+        <div class="form-group col-sm-6">
+          <!--capture the username and passsword details-->
+          <label for="loguname">Username:</label><br />
+          <input
+            type="text"
+            id="loguname"
+            name="loguname"
+            class="form-control"
+          /><br />
+          <label for="logpass">Password:</label><br />
+          <input
+            type="password"
+            id="logpass"
+            name="logpass"
+            class="form-control"
+          /><br />
+          <br />
+          <!--button areas of the section-->
+          <button class="btn btn-warning">Clear</button>
+          <button class="btn btn-success" id="login">
+            Login
+          </button>
+          <button class="btn btn-default" id="RegisterInstead">
+            Register Instead
+          </button>
+        </div>
       </div>
     </section>
-    <footer class="col-sm-1 col-md-6 col-lg-12 personalHeaderFooter">
+    <footer class="col-sm-12 personalHeaderFooter">
       <h3>
         Created by William Carey,C16315253 &copy; 2020
       </h3>

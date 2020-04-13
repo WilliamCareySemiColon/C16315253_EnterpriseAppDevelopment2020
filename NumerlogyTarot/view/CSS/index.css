@@ -7,3 +7,11 @@ body {
 .personalHeaderFooter h3 {
   text-align: center;
 }
+
+.compulsory {
+  color: orange;
+}
+#Register,
+#Login {
+  float: center;
+}
