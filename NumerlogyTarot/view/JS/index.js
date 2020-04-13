@@ -3,17 +3,21 @@ $("#login").click(function() {
 });
 
 //The login button fields
-$("#RegisterInstead").click(function() {
+$("#RegisterInsteadBtn").click(function() {
   $("#Register").show();
   $("#Login").hide();
 });
 
 ////register fields instead
-$("#LoginInstead").click(function() {
+$("#LoginInsteadBtn").click(function() {
   $("#Login").show();
   $("#Register").hide();
 });
 
+$("#LoginClearBtn").click(function() {
+  document.getElementById("loguname").value = "";
+  document.getElementById("logpass").value = "";
+});
 // $("#Register")
 
 // $("#Login")
