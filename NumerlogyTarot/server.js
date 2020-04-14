@@ -1,8 +1,10 @@
+//all the javascript files for the server
 var express = require("express");
 var http = require("http");
 var app = express();
 var fs = require("fs");
 var path = require("path");
+var mongodb = require("mongodb");
 
 //default location for the application
 app.use(express.static(path.join(__dirname + "/view")));
@@ -32,8 +34,7 @@ app.get("/", function(req, res) {
   });
 });
 
-//mongo files
-var mongodb = require("mongodb");
+//mongo files and connections
 var MongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 
@@ -42,5 +43,6 @@ MongoClient.connect(url, function(err, db) {
     throw err;
   } else {
     console.log("Connected");
+    db.close();
   }
 });
