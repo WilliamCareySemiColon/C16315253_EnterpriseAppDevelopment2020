@@ -8,8 +8,11 @@ var mongodb = require("mongodb");
 
 //default location for the application
 app.use(express.static(path.join(__dirname + "/view")));
-// Create our Express-powered HTTP server and have it listen on port 8080
-http.createServer(app).listen(7777);
+
+// Create our Express-powered HTTP server and have it listen on port 7777
+http.createServer(app).listen(7777, function() {
+  console.log("Listening on port 7777");
+});
 // set up our routes
 app.get("/hello", function(req, res) {
   // no need to set up HTTP headers
