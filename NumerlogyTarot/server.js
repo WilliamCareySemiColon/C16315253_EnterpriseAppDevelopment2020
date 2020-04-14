@@ -4,7 +4,9 @@ var http = require("http");
 var app = express();
 var fs = require("fs");
 var path = require("path");
-var mongodb = require("mongodb");
+//var mongodb = require("mongodb");
+//personal require files
+var MongodDBServer = require("./DatabaseScripts/MongoDBServerScript");
 
 //default location for the application
 app.use(express.static(path.join(__dirname + "/view")));
@@ -35,17 +37,4 @@ app.get("/", function(req, res) {
       return res.end();
     }
   });
-});
-
-//mongo files and connections
-var MongoClient = mongodb.MongoClient;
-var url = "mongodb://localhost:27017";
-
-MongoClient.connect(url, function(err, db) {
-  if (err) {
-    throw err;
-  } else {
-    console.log("Connected");
-    db.close();
-  }
 });

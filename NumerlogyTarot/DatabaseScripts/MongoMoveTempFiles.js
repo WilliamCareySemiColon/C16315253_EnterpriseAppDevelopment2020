@@ -1,3 +1,4 @@
+//javascript code to get the sammple data into the system
 var mongodb = require("mongodb");
 
 var collectionToInsert = [
@@ -49,15 +50,16 @@ MongoClient.connect(url, function(err, db) {
     throw err;
   } else {
     console.log("Connected to the mongo server on localhost 27017");
+    //the database needed to connect to
     var database = db.db("NumerlogyTarotDB");
     console.log("Connected to the database NumerlogyTarotDB");
+    //the collection to connect to
     var collection = database.collection("users");
     console.log("Connected to the collections users");
+    //inserting the sample data created above
     collection.insertMany(collectionToInsert);
     console.log("writing to the collection");
     db.close();
     console.log("DB work is completed");
   }
 });
-
-//db.close();
