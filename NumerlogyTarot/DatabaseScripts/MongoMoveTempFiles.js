@@ -44,7 +44,7 @@ var collectionToInsert = [
 var MongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
   if (err) {
     db.close();
     throw err;

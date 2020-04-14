@@ -4,12 +4,15 @@ var http = require("http");
 var app = express();
 var fs = require("fs");
 var path = require("path");
+var HttpMsgs = require("http-msgs");
+var bodyParser = require("body-parser");
 //var mongodb = require("mongodb");
 //personal require files
 var MongodDBServer = require("./DatabaseScripts/MongoDBServerScript");
 
 //default location for the application
 app.use(express.static(path.join(__dirname + "/view")));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Create our Express-powered HTTP server and have it listen on port 7777
 http.createServer(app).listen(7777, function() {
@@ -36,5 +39,15 @@ app.get("/", function(req, res) {
       res.write(data);
       return res.end();
     }
+  });
+});
+
+//test method
+app.post("/endpoint", function(req, res) {
+  console.log("body: " + req.body.text);
+
+  //res.send(req.body);
+  HttpMsgs.sendJSON(req, res, {
+    from: "server"
   });
 });
