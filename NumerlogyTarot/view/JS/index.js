@@ -10,29 +10,13 @@ $("#LoginClearBtn").click(function() {
 });
 
 $("#LoginBtn").click(function() {
-  //alert("test method in place");
-  //the login method using the xmlHttpRequest
-  //   var xmlHttpRequest = new XMLHttpRequest();
-  //   //the handler when the request is ready
-  //   xmlHttpRequest.onreadystatechange = function() {
-  //     //ready and returned with the sources
-  //     if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
-  //       var myArr = JSON.parse(xmlhttp.responseText);
-  //       console.log(myArr);
-  //     }
-  //   };
-  //   //variables to pass to the server
-  //   var uname = document.getElementById("loguname").value;
-  //   var pass = document.getElementById("logpass").value;
-
-  //   var url = "../server.js";
-
-  //   xmlhttp.open("POST", url, true, uname, pass); //true asynchronous
-  //   xmlhttp.send();
+  //variables to pass to the server
+  var username = document.getElementById("loguname").value;
+  var password = document.getElementById("logpass").value;
 
   var data = {
-    title: "title",
-    message: "message"
+    username: username,
+    password: password
   };
 
   $.ajax({
