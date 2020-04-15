@@ -11,8 +11,16 @@ var bodyParser = require("body-parser");
 var MongodDBServer = require("./DatabaseScripts/MongoDBServerScript");
 
 //default location for the application
+
 app.use(express.static(path.join(__dirname + "/view")));
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser);
+//app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(app.router);
+//app.use(express.bodyParser());
+//app.use(bodyParser.json());
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 // Create our Express-powered HTTP server and have it listen on port 7777
 http.createServer(app).listen(7777, function() {
@@ -44,7 +52,7 @@ app.get("/", function(req, res) {
 
 //test method
 app.post("/endpoint", function(req, res) {
-  console.log("body: " + req.body.text);
+  console.log("body: " + req.body.title);
 
   //res.send(req.body);
   HttpMsgs.sendJSON(req, res, {

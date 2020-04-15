@@ -10,7 +10,7 @@ $("#LoginClearBtn").click(function() {
 });
 
 $("#LoginBtn").click(function() {
-  alert("test method in place");
+  //alert("test method in place");
   //the login method using the xmlHttpRequest
   //   var xmlHttpRequest = new XMLHttpRequest();
   //   //the handler when the request is ready
@@ -30,16 +30,14 @@ $("#LoginBtn").click(function() {
   //   xmlhttp.open("POST", url, true, uname, pass); //true asynchronous
   //   xmlhttp.send();
 
-  var data = {};
-  data.title = "title";
-  data.message = "message";
+  var data = {
+    title: "title",
+    message: "message"
+  };
 
   $.ajax({
     type: "POST",
-    data: {
-      text: "message"
-    },
-    contentType: "application/json",
+    data: data,
     dataType: "json",
     url: "/endpoint",
     success: function(data) {
