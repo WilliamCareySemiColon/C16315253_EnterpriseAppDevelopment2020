@@ -9,20 +9,10 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var mongoose = require("mongoose");
 
-//personal require files
-var MongodDBServer = require("./DatabaseScripts/MongoDBServerScript.js");
-
 //default location for the application
 app.use(express.static(path.join(__dirname + "/view")));
-//app.use(bodyParser);
-//app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(app.router);
-//app.use(express.bodyParser());
-//app.use(bodyParser.json());
-//app.use(express.json());
-//app.use(express.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: false }));
 
+app.use(express.urlencoded({ extended: false }));
 // Create our Express-powered HTTP server and have it listen on port 7777
 http.createServer(app).listen(7777, function() {
   console.log("Listening on port 7777");
@@ -30,6 +20,7 @@ http.createServer(app).listen(7777, function() {
 
 //creating the connections to the database
 mongoose.connect("mongodb://localhost:27017/NumerlogyTarotDB");
+//creating the schema for reading the data
 var scehma = new mongoose.Schema({
   _id: "String",
   username: "String",
@@ -39,7 +30,7 @@ var scehma = new mongoose.Schema({
   DOB: "String",
   password: "String"
 });
-
+//creating the connection to the collection itself
 var users = mongoose.model("users", scehma);
 
 // set up our routes
@@ -67,52 +58,7 @@ app.get("/", function(req, res) {
 });
 
 //test method
-// app.post("/endpoint", function(req, res) {
-//   var url = "mongodb://localhost:27017";
-//   var MongoClient = mongodb.MongoClient;
-
-//   console.log("body: " + req.body.username + " " + req.body.password);
-
-//   MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
-//     if (err) {
-//       console.log("\n\n" + err + "\n\n");
-//       db.close();
-//     } else {
-//       var database = db.db("NumerlogyTarotDB");
-//       console.log("Connected to the database NumerlogyTarotDB");
-//       //the collection to connect to
-//       var collection = database.collection("users");
-//       console.log("Connected to the collections users");
-
-//       console.log(collection.find({ username: req.body.username }));
-
-//       // collection.find({ username: username }).toArray(function(err, result) {
-//       //   if (err) throw err;
-//       //   else {
-//       //     console.log(result);
-//       //   }
-//       // });
-//       //var myCursor = collection.find({ username: username }).max(1);
-//       //var item = collection.find({ username: req.body.username }).max(1);
-//       var item = collection.find().max(1);
-
-//       //myCursor.hasNext() ? myCursor.next() : null;
-//       console.log("Items found: " + item);
-//       db.close();
-//       //res.send(req.body);
-//       HttpMsgs.sendJSON(req, res, {
-//         items: item.toString()
-//       });
-//     }
-//   });
-
-//var item = MongodDBServer.FindUserDetails(req.body.username);
-
-//console.log("items sent to front end: " + item);
-//});
-
-//test method
-app.post("/endpoint", function(req, res) {
+app.post("/login", function(req, res) {
   console.log("body: " + req.body.username + " " + req.body.password);
 
   users.find({ username: req.body.username }, function(err, docs) {
@@ -124,7 +70,4 @@ app.post("/endpoint", function(req, res) {
       });
     }
   });
-  // HttpMsgs.sendJSON(req, res, {
-  //   items: item.toString()
-  // });
 });

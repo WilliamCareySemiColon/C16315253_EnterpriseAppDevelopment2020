@@ -23,7 +23,7 @@ $("#LoginBtn").click(function() {
     type: "POST",
     data: data,
     dataType: "json",
-    url: "/endpoint",
+    url: "/login",
     success: function(data) {
       console.log("success");
       console.log(JSON.stringify(data));
