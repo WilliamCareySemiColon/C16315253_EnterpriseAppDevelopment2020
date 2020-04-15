@@ -57,7 +57,7 @@ app.get("/", function(req, res) {
   });
 });
 
-//test method
+//the login method to get the user details with the mongodb server
 app.post("/login", function(req, res) {
   console.log("body: " + req.body.username + " " + req.body.password);
 
