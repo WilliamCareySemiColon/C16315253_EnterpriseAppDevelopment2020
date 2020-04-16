@@ -57,7 +57,7 @@ app.get("/", function (req, res) {
   });
 });
 
-//the login method to get the user details with the mongodb server
+//the method to get the user details with the mongodb server and check them
 app.post("/checkuserdetails", function (req, res) {
   console.log("body: " + req.body.username + " " + req.body.password);
 
@@ -68,6 +68,26 @@ app.post("/checkuserdetails", function (req, res) {
       HttpMsgs.sendJSON(req, res, {
         items: docs,
       });
+    }
+  });
+});
+
+//the login function working
+app.get("/login", function (req, res) {
+  console.log("area is successfully called");
+  let filename = "./view/home.html";
+  fs.readFile(filename, function (err, data) {
+    if (err) {
+      res.writeHead(404, { "Content-Type": "text/html" });
+      return res.end("404 Not Found");
+    } else {
+      res.writeHead(
+        200,
+        { "Content-Type": "text/html" },
+        { Location: "http://localhost:7777/login" }
+      );
+      res.write(data);
+      return res.end();
     }
   });
 });

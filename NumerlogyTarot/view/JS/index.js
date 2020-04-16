@@ -33,10 +33,12 @@ $("#LoginBtn").click(function () {
       else {
         var usernameparm = data.items[0].username;
         var passwordparm = data.items[0].password;
+        //if the username and password requirement are acceptted
         if (username === usernameparm && password === passwordparm) {
-          alert("crediatals are correct");
-          //implement login procedure later
-        } else if (username === usernameparm && password !== passwordparm) {
+          //redirect to the page desired
+          window.location.replace("http://localhost:7777/login");
+        } //if the username match but the username does not
+        else if (username === usernameparm && password !== passwordparm) {
           alert("password entered is incorect for the user " + usernameparm);
         }
       }
@@ -61,6 +63,7 @@ $("#RegisterClearBtn").click(function () {
 
 $("#RegisterBtn").click(function () {
   var fname = document.getElementById("fname").value;
+  //if the middle name value is untouched, it is passed as a empty string
   var mname = document.getElementById("mname").value;
   var lname = document.getElementById("lname").value;
   var reguname = document.getElementById("reguname").value;
@@ -68,6 +71,7 @@ $("#RegisterBtn").click(function () {
   var DOB = document.getElementById("DOB").value;
   var regpass = document.getElementById("regpass").value;
   var conpass = document.getElementById("conpass").value;
+
   //alert("test method for now");
   var data = {
     username: reguname,
