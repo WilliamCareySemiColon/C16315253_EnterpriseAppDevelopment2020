@@ -141,9 +141,6 @@ app.post("/register", function (req, res) {
       //inserting the sample data created above
       var docs = await collection.insertOne(registerUser);
       console.log("writing to the collection");
-      //db.close();
-      console.log("DB work is completed");
-
       console.log("\n\nresult " + docs);
 
       db.close();

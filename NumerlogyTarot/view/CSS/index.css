@@ -8,7 +8,27 @@ body {
 .personalHeaderFooter h3 {
   text-align: center;
 }
-
+/*The section for the registartion page*/
 .compulsory {
   color: orange;
+}
+
+/*The buttons on the ul section for the home and account page*/
+#header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#header li {
+  float: left;
+}
+
+#header li button {
+  display: block;
+  text-align: center;
+  padding: 1em 1em;
+  text-decoration: none;
+  margin: 0.5em;
 }
