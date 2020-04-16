@@ -63,7 +63,7 @@ app.post("/checkuserdetails", function (req, res) {
 
   users.find({ username: req.body.username }, function (err, docs) {
     if (err) {
-      console.log(error);
+      console.log(err);
     } else {
       HttpMsgs.sendJSON(req, res, {
         items: docs,
@@ -114,14 +114,22 @@ app.post("/register", function (req, res) {
     password: password,
   };
 
+  console.log(registerUser);
+
   //mongo files and connections
   var MongoClient = mongodb.MongoClient;
   var url = "mongodb://localhost:27017";
 
-  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+  MongoClient.connect(url, { useUnifiedTopology: true }, async function (
+    err,
+    db
+  ) {
     if (err) {
       db.close();
-      throw err;
+      HttpMsgs.sendJSON(req, res, {
+        items: "failure " + err,
+      });
+      //throw err;
     } else {
       console.log("Connected to the mongo server on localhost 27017");
       //the database needed to connect to
@@ -131,10 +139,17 @@ app.post("/register", function (req, res) {
       var collection = database.collection("users");
       console.log("Connected to the collections users");
       //inserting the sample data created above
-      collection.insert(registerUser);
+      var docs = await collection.insertOne(registerUser);
       console.log("writing to the collection");
-      db.close();
+      //db.close();
       console.log("DB work is completed");
+
+      console.log("\n\nresult " + docs);
+
+      db.close();
+      HttpMsgs.sendJSON(req, res, {
+        items: "success in inserting data into database",
+      });
     }
   });
 });

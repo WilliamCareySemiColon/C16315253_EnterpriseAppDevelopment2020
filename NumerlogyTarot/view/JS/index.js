@@ -72,6 +72,15 @@ $("#RegisterBtn").click(function () {
   var regpass = document.getElementById("regpass").value;
   var conpass = document.getElementById("conpass").value;
 
+  //converting the date object to the desired date
+  var DOBDate = new Date(DOB);
+  var day = DOBDate.getDate();
+  var month = DOBDate.getMonth() + 1;
+  var year = DOBDate.getFullYear();
+  var DOBParameter = day + "/" + month + "/" + year;
+
+  //console.log(DOBParameter);
+
   //alert("test method for now");
   var data = {
     username: reguname,
@@ -84,12 +93,9 @@ $("#RegisterBtn").click(function () {
     mname: mname,
     lname: lname,
     email: email,
-    DOB: DOB,
+    DOB: DOBParameter,
     password: regpass,
   };
-
-  //format: yyyy-MM-dd
-  console.log(DOB);
 
   $.ajax({
     type: "POST",
@@ -102,6 +108,18 @@ $("#RegisterBtn").click(function () {
       if (data.items[0] === undefined) {
         alert("User with username does not exist");
         //implement the register details later
+        $.ajax({
+          type: "POST",
+          data: registerData,
+          dataType: "json",
+          url: "/register",
+          success: function (data) {
+            console.log("success communcation " + data.items);
+          },
+          error: function (data) {
+            console.log("Failed in communcation");
+          },
+        }); //end inner ajax
       } //if the user exist
       else {
         alert(
@@ -134,7 +152,7 @@ function ClearRegisterDetails() {
 }
 
 $(".datepicker").datepicker({
-  dateFormat: "mm/dd/yyyy",
+  dateFormat: "dd/mm/yyyy",
   startDate: new Date(),
   maxDate: "now",
 });
