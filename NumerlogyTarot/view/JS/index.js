@@ -78,6 +78,19 @@ $("#RegisterBtn").click(function () {
     password: regpass,
   };
 
+  var registerData = {
+    username: reguname,
+    fname: fname,
+    mname: mname,
+    lname: lname,
+    email: email,
+    DOB: DOB,
+    password: regpass,
+  };
+
+  //format: yyyy-MM-dd
+  console.log(DOB);
+
   $.ajax({
     type: "POST",
     data: data,
@@ -91,7 +104,9 @@ $("#RegisterBtn").click(function () {
         //implement the register details later
       } //if the user exist
       else {
-        alert("user with that username - please select a different username");
+        alert(
+          "user already exist with that username - please select a different username"
+        );
       }
     },
     error: function (data) {
@@ -117,3 +132,9 @@ function ClearRegisterDetails() {
   document.getElementById("regpass").value = "";
   document.getElementById("conpass").value = "";
 }
+
+$(".datepicker").datepicker({
+  dateFormat: "mm/dd/yyyy",
+  startDate: new Date(),
+  maxDate: "now",
+});

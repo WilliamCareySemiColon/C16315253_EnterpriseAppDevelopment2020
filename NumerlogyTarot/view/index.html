@@ -9,6 +9,11 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="CSS/bootstrap-datepicker.css"
+    />
     <link rel="stylesheet" type="text/css" href="CSS/index.css" />
   </head>
   <body>
@@ -24,7 +29,7 @@
       <div id="Register" class="col-sm-12" hidden="hidden">
         <h3>Register for the application</h3>
 
-        <div class="form-group col-sm-6 ">
+        <div class="form-group col-sm-6">
           <!--The name of the user, which is the first name, middle name, surname and username-->
           <label for="fname"
             >First name: <strong class="compulsory">*</strong> </label
@@ -72,7 +77,19 @@
           <label for="DOB"
             >Date of Birth: <strong class="compulsory">*</strong></label
           ><br />
-          <input type="date" id="DOB" name="DOB" class="form-control" /><br />
+          <div class="input-group date" data-provide="datepicker">
+            <input type="text" class="form-control" id="DOB" name="DOB" />
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+            </div>
+          </div>
+          <!-- <input
+            type="date"
+            id="DOB"
+            name="DOB"
+            class="form-control date-picker"
+          /> -->
+          <br />
           <label for="regpass"
             >Password: <strong class="compulsory">*</strong></label
           ><br />
@@ -102,7 +119,7 @@
         </div>
       </div>
       <!--The login section-->
-      <div id="Login" class="col-sm-12 ">
+      <div id="Login" class="col-sm-12">
         <h3>Login for the application</h3>
         <div class="form-group col-sm-6">
           <!--capture the username and passsword details-->
@@ -139,6 +156,8 @@
       <!--Script files for the functionality of the application and to be able to use the JQuery-->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <!--Personal scripts-->
+      <script src="JS/bootstrap-datepicker.js"></script>
       <script src="JS/index.js"></script>
     </footer>
   </body>

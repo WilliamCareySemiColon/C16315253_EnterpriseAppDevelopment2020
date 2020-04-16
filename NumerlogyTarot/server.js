@@ -89,5 +89,52 @@ app.get("/login", function (req, res) {
       res.write(data);
       return res.end();
     }
+    //res.redirect allows the app to redirect to a different page
+  });
+});
+
+//register the users into the application
+app.post("/register", function (req, res) {
+  //variables to take in the details of the user into the application
+  var _id = req.body.username;
+  var username = req.body.username;
+  var fname = req.body.fname;
+  var mname = req.body.mname;
+  var lname = req.body.lname;
+  var DOB = req.body.DOB;
+  var password = req.body.password;
+
+  var registerUser = {
+    _id: _id,
+    username: username,
+    name: fname,
+    middlename: mname,
+    surname: lname,
+    DOB: DOB,
+    password: password,
+  };
+
+  //mongo files and connections
+  var MongoClient = mongodb.MongoClient;
+  var url = "mongodb://localhost:27017";
+
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) {
+      db.close();
+      throw err;
+    } else {
+      console.log("Connected to the mongo server on localhost 27017");
+      //the database needed to connect to
+      var database = db.db("NumerlogyTarotDB");
+      console.log("Connected to the database NumerlogyTarotDB");
+      //the collection to connect to
+      var collection = database.collection("users");
+      console.log("Connected to the collections users");
+      //inserting the sample data created above
+      collection.insert(registerUser);
+      console.log("writing to the collection");
+      db.close();
+      console.log("DB work is completed");
+    }
   });
 });
