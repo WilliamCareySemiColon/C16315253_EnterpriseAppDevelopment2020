@@ -115,6 +115,8 @@ $("#RegisterBtn").click(function () {
           url: "/register",
           success: function (data) {
             console.log("success communcation " + data.items);
+            //redirect to the page desired
+            window.location.replace("http://localhost:7777/login");
           },
           error: function (data) {
             console.log("Failed in communcation");
