@@ -43,16 +43,7 @@ var scehma = new mongoose.Schema({
 //creating the connection to the collection itself
 var users = mongoose.model("users", scehma);
 
-// set up our routes
-app.get("/hello", function (req, res) {
-  // no need to set up HTTP headers
-  res.send("Hello World 1234!");
-});
-// simply using res.send instead of res.write and res.end
-app.get("/goodbye", function (req, res) {
-  res.send("Goodbye World!");
-});
-
+//setting the routes to the application
 app.get("/", function (req, res) {
   let filename = "./index.html";
   fs.readFile(filename, function (err, data) {
@@ -88,7 +79,6 @@ app.post("/checkuserdetails", function (req, res) {
       if (StableDocs[0] !== undefined) {
         sess.username = req.body.username;
         sess.password = req.body.password;
-        sess.id = StableDocs[0]._id;
         sess.firstname = StableDocs[0].name;
         sess.mname = StableDocs[0].middlename;
         sess.surname = StableDocs[0].surname;
@@ -127,6 +117,7 @@ app.get("/login", function (req, res) {
 
 //register the users into the application
 app.post("/register", function (req, res) {
+  var sess = req.session;
   //variables to take in the details of the user into the application
   var _id = req.body.username;
   var username = req.body.username;
@@ -175,9 +166,56 @@ app.post("/register", function (req, res) {
       console.log("\n\nresult " + docs);
 
       db.close();
+      //appending the information to the session too
+      sess.username = username;
+      sess.password = password;
+      sess.firstname = fname;
+      sess.mname = mname;
+      sess.surname = lname;
+      sess.DOB = DOB;
+      //sending the information back to the client
       HttpMsgs.sendJSON(req, res, {
         items: "success in inserting data into database",
       });
     }
   });
+});
+
+//redirect to the details
+app.get("/ViewAccount", function (req, res) {
+  let filename = "./view/ViewAccount.html";
+  fs.readFile(filename, function (err, data) {
+    if (err) {
+      res.writeHead(404, { "Content-Type": "text/html" });
+      return res.end("404 Not Found");
+    } else {
+      es.writeHead(
+        200,
+        { "Content-Type": "text/html" },
+        { Location: "http://localhost:7777/login" }
+      );
+      res.write(data);
+      return res.end();
+    }
+  });
+});
+//getting the user details to the server
+app.post("/GetUserDetails", function (req, res) {
+  var sess = req.session;
+
+  if (sess.username) {
+    var doc = {
+      username: sess.username,
+      password: sess.password,
+      firstname: sess.firstname,
+      mname: sess.mname,
+      surname: sess.surname,
+      DOB: sess.DOB,
+    };
+    HttpMsgs.sendJSON(req, res, {
+      items: doc,
+    });
+  } else {
+    res.redirect("/");
+  }
 });
