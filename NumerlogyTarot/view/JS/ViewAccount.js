@@ -73,6 +73,13 @@ $("#SubmitDetails").click(function () {
         url: "/UpdateUserAccountDetails",
         success: function (data) {
           console.log(data);
+          Storeddata.firstname = data.items.firstname;
+          Storeddata.mname = data.items.middlename;
+          Storeddata.surname = data.items.surname;
+          Storeddata.DOB = data.items.DOB;
+          Storeddata.password = data.items.password;
+          SetFieldsDisabled(true);
+          RemoveChangesFromTextFields();
         },
         error: function (data) {
           console.log(data);
