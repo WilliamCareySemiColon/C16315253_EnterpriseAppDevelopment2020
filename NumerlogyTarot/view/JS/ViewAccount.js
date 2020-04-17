@@ -25,3 +25,27 @@ $(document).ready(function () {
     },
   });
 });
+
+//the button handlers
+$("#EditDetails").click(function () {
+  SetFieldsDisabled(false);
+});
+
+$("#CancelEditing").click(function () {
+  SetFieldsDisabled(true);
+});
+
+$("#SubmitDetails").click(function () {
+  alert("Hello World");
+});
+
+function SetFieldsDisabled(Value) {
+  document.getElementById("fname").disabled = Value;
+  document.getElementById("mname").disabled = Value;
+  document.getElementById("lname").disabled = Value;
+  document.getElementById("DOB").disabled = Value;
+  document.getElementById("password").disabled = Value;
+  document.getElementById("CancelEditing").disabled = Value;
+  document.getElementById("SubmitDetails").disabled = Value;
+  document.getElementById("EditDetails").disabled = !Value;
+}
