@@ -8,7 +8,13 @@ var HttpMsgs = require("http-msgs");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var mongoose = require("mongoose");
+var expressSession = require("express-session");
 
+//creating the session for inital use
+app.use(expressSession({ secret: "sssshhhhh" }));
+// , function () {
+//   console.log("Sessions are usable in application");
+// });
 //default location for the application
 app.use(express.static(path.join(__dirname + "/view")));
 
@@ -19,9 +25,11 @@ http.createServer(app).listen(7777, function () {
 });
 
 //creating the connections to the database
-mongoose.connect("mongodb://localhost:27017/NumerlogyTarotDB", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb://localhost:27017/NumerlogyTarotDB",
+  //{ useNewUrlParser: true },
+  { useUnifiedTopology: true, useNewUrlParser: true }
+);
 //creating the schema for reading the data
 var scehma = new mongoose.Schema({
   _id: "String",
@@ -59,14 +67,36 @@ app.get("/", function (req, res) {
   });
 });
 
-//the method to get the user details with the mongodb server and check them
+//the method to get the user details with the mongodb server and check them to see if they're correct
 app.post("/checkuserdetails", function (req, res) {
-  console.log("body: " + req.body.username + " " + req.body.password);
+  var sess = req.session;
+  //allow session to last three months
+  //sess.cookie.maxAge = 92*24 * 60 * 60 * 1000
+  //allow session to last a day
+  sess.cookie.maxAge = 24 * 60 * 60 * 1000;
+  // This user should log in again after restarting the browser
+  sess.cookie.expires = false;
+  var StableDocs;
+
+  //console.log("body: " + req.body.username + " " + req.body.password);
 
   users.find({ username: req.body.username }, function (err, docs) {
     if (err) {
       console.log(err);
     } else {
+      StableDocs = docs;
+      if (StableDocs[0] !== undefined) {
+        sess.username = req.body.username;
+        sess.password = req.body.password;
+        sess.id = StableDocs[0]._id;
+        sess.firstname = StableDocs[0].name;
+        sess.mname = StableDocs[0].middlename;
+        sess.surname = StableDocs[0].surname;
+        sess.DOB = StableDocs[0].DOB;
+      }
+
+      console.log(sess);
+
       HttpMsgs.sendJSON(req, res, {
         items: docs,
       });
@@ -76,7 +106,7 @@ app.post("/checkuserdetails", function (req, res) {
 
 //the login function working
 app.get("/login", function (req, res) {
-  console.log("area is successfully called");
+  //console.log("area is successfully called");
   let filename = "./view/home.html";
   fs.readFile(filename, function (err, data) {
     if (err) {
@@ -116,8 +146,7 @@ app.post("/register", function (req, res) {
     password: password,
   };
 
-  console.log(registerUser);
-
+  //console.log(registerUser);
   //mongo files and connections
   var MongoClient = mongodb.MongoClient;
   var url = "mongodb://localhost:27017";
@@ -135,10 +164,10 @@ app.post("/register", function (req, res) {
     } else {
       console.log("Connected to the mongo server on localhost 27017");
       //the database needed to connect to
-      var database = db.db("NumerlogyTarotDB");
+      var database = await db.db("NumerlogyTarotDB");
       console.log("Connected to the database NumerlogyTarotDB");
       //the collection to connect to
-      var collection = database.collection("users");
+      var collection = await database.collection("users");
       console.log("Connected to the collections users");
       //inserting the sample data created above
       var docs = await collection.insertOne(registerUser);

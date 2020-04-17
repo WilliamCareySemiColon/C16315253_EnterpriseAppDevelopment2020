@@ -9,7 +9,7 @@ var collectionToInsert = [
     middlename: "Michael Thomas",
     surname: "Carey",
     DOB: "19/01/1998",
-    password: "password"
+    password: "password",
   },
   {
     _id: "Noel2468",
@@ -18,7 +18,7 @@ var collectionToInsert = [
     middlename: "",
     surname: "Carey",
     DOB: "02/12/1966",
-    password: "fitgoals"
+    password: "fitgoals",
   },
   {
     _id: "supersue1234",
@@ -27,7 +27,7 @@ var collectionToInsert = [
     middlename: "",
     surname: "Carey",
     DOB: "28/01/1971",
-    password: "autism"
+    password: "autism",
   },
   {
     _id: "mick09101996",
@@ -36,28 +36,31 @@ var collectionToInsert = [
     middlename: "William",
     surname: "Carey",
     DOB: "09/10/1996",
-    password: "dinosuar"
-  }
+    password: "dinosuar",
+  },
 ];
 
 //mongo files and connections
 var MongoClient = mongodb.MongoClient;
 var url = "mongodb://localhost:27017";
 
-MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
+MongoClient.connect(url, { useUnifiedTopology: true }, async function (
+  err,
+  db
+) {
   if (err) {
     db.close();
     throw err;
   } else {
     console.log("Connected to the mongo server on localhost 27017");
     //the database needed to connect to
-    var database = db.db("NumerlogyTarotDB");
+    var database = await db.db("NumerlogyTarotDB");
     console.log("Connected to the database NumerlogyTarotDB");
     //the collection to connect to
-    var collection = database.collection("users");
+    var collection = await database.collection("users");
     console.log("Connected to the collections users");
     //inserting the sample data created above
-    collection.insertMany(collectionToInsert);
+    await collection.insertMany(collectionToInsert);
     console.log("writing to the collection");
     db.close();
     console.log("DB work is completed");
