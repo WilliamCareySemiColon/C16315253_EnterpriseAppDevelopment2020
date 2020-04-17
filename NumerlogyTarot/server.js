@@ -19,7 +19,9 @@ http.createServer(app).listen(7777, function () {
 });
 
 //creating the connections to the database
-mongoose.connect("mongodb://localhost:27017/NumerlogyTarotDB");
+mongoose.connect("mongodb://localhost:27017/NumerlogyTarotDB", {
+  useNewUrlParser: true,
+});
 //creating the schema for reading the data
 var scehma = new mongoose.Schema({
   _id: "String",
