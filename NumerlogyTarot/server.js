@@ -269,3 +269,9 @@ app.post("/deleteAccount", function (req, res) {
     }
   });
 });
+
+app.post("/logout", function (req, res) {
+  var sess = req.session;
+  sess.destroy();
+  res.redirect("/");
+});
