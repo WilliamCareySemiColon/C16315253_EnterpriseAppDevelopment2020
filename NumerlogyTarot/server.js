@@ -242,9 +242,30 @@ app.post("/UpdateUserAccountDetails", function (req, res) {
 
       await doc.save();
 
+      sess.password = password;
+      sess.firstname = fname;
+      sess.mname = middlename;
+      sess.surname = surname;
+      sess.DOB = DOB;
+
       HttpMsgs.sendJSON(req, res, {
         items: doc,
       });
+    }
+  });
+});
+
+app.post("/deleteAccount", function (req, res) {
+  var sess = req.session;
+  var username = req.body.username;
+
+  users.findOneAndDelete({ username: username }, function (err, doc) {
+    if (err) {
+      console.log(err);
+    } else {
+      doc.save();
+      sess.destroy();
+      res.redirect("/");
     }
   });
 });

@@ -92,7 +92,23 @@ $("#SubmitDetails").click(function () {
 });
 
 $("#DeleteAccount").click(function () {
-  alert("Hello World");
+  if (confirm("are you sure you want to delete your account")) {
+    data = {
+      username: document.getElementById("reguname").value,
+    };
+    $.ajax({
+      type: "POST",
+      data: data,
+      url: "/deleteAccount",
+      success: function () {
+        window.location.replace("http://localhost:7777/");
+      },
+      error: function () {
+        console.log("error in deleting the account");
+      },
+    });
+    //alert("Hello World");
+  }
 });
 
 //method to set the fields to disabled or not - triggered by two different buttons
@@ -134,8 +150,8 @@ function Validate(firstname, lastname, DOB, regpass) {
     if (
       DOB === "" ||
       DOB === undefined ||
-      !datere.test(DOB) ||
-      DOB.length !== 9
+      //!datere.test(DOB) ||
+      DOB.length !== 10
     ) {
       alert("Date of birth needs to be filled in correctly");
       return false;

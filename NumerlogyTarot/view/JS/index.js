@@ -185,8 +185,8 @@ function Validate(firstname, lastname, reguname, DOB, regpass, conpass) {
   if (
     DOB === "" ||
     DOB === undefined ||
-    !datere.test(DOB) ||
-    DOB.length !== 9
+    //!datere.test(DOB) ||
+    DOB.length !== 10
   ) {
     alert("Date of birth needs to be filled in correctly");
     return false;
@@ -197,7 +197,7 @@ function Validate(firstname, lastname, reguname, DOB, regpass, conpass) {
     return false;
   }
 
-  if (regpass === conpass) {
+  if (regpass !== conpass) {
     alert("Password needs to be confirmed");
     return false;
   }
