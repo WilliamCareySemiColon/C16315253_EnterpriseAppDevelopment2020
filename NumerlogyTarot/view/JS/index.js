@@ -67,12 +67,12 @@ $("#RegisterBtn").click(function () {
   var mname = document.getElementById("mname").value;
   var lname = document.getElementById("lname").value;
   var reguname = document.getElementById("reguname").value;
-  var email = document.getElementById("email").value;
+  //var email = document.getElementById("email").value;
   var DOB = document.getElementById("DOB").value;
   var regpass = document.getElementById("regpass").value;
   var conpass = document.getElementById("conpass").value;
 
-  var flag = Validate(fname, lname, reguname, email, DOB, regpass, conpass);
+  var flag = Validate(fname, lname, reguname, DOB, regpass, conpass);
 
   if (flag) {
     //converting the date object to the desired date
@@ -95,7 +95,6 @@ $("#RegisterBtn").click(function () {
       fname: fname,
       mname: mname,
       lname: lname,
-      email: email,
       DOB: DOBParameter,
       password: regpass,
     };
@@ -164,9 +163,8 @@ $(".datepicker").datepicker({
 });
 
 //function to valiadate all the fields of the registration form
-function Validate(firstname, lastname, reguname, email, DOB, regpass, conpass) {
+function Validate(firstname, lastname, reguname, DOB, regpass, conpass) {
   //regex strings
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var datere = /^[a-zA-Z]+$/;
 
   if (firstname === "" || firstname === undefined) {
@@ -181,11 +179,6 @@ function Validate(firstname, lastname, reguname, email, DOB, regpass, conpass) {
 
   if (reguname === "" || reguname === undefined || reguname.length < 6) {
     alert("username needs to be filled in properly in 6 or more characters");
-    return false;
-  }
-
-  if (email === "" || !re.test(email) || email.length < 14) {
-    alert("Email needs to be filled in correctly in 14 or more characters");
     return false;
   }
 

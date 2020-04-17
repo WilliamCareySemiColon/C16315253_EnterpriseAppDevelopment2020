@@ -219,3 +219,32 @@ app.post("/GetUserDetails", function (req, res) {
     res.redirect("/");
   }
 });
+
+//the function to update the user details
+app.post("/UpdateUserAccountDetails", function (req, res) {
+  var sess = req.session;
+  var username = req.body.username;
+  var firstname = req.body.firstname;
+  var middlename = req.body.middlename;
+  var surname = req.body.surname;
+  var DOB = req.body.DOB;
+  var password = req.body.password;
+
+  users.findOne({ username: username }, async function (err, doc) {
+    if (err) {
+      console.log(err);
+    } else {
+      doc.name = firstname;
+      doc.middlename = middlename;
+      doc.surname = surname;
+      doc.DOB = DOB;
+      doc.password = password;
+
+      await doc.save();
+
+      HttpMsgs.sendJSON(req, res, {
+        items: doc,
+      });
+    }
+  });
+});
