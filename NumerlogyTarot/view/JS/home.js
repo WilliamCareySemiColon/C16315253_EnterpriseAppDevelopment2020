@@ -62,15 +62,24 @@ $("#LifepathBtn").click(function () {
 });
 
 $("#ExpressionNumberBtn").click(function () {
-  alert("Hello world 2");
+  var name = Storeddata.firstname;
+
+  var element = CalculateExpressionNumber(name);
+  alert(element);
 });
 
 $("#SoulUrgeBtn").click(function () {
-  alert("Hello world 3");
+  var name = Storeddata.firstname;
+
+  var element = CalculateWithVowels(name, true);
+  alert(element);
 });
 
 $("#PersonalityNumberBtn").click(function () {
-  alert("Hello world 4");
+  var name = Storeddata.firstname;
+
+  var element = CalculateWithVowels(name, false);
+  alert(element);
 });
 
 $("#BirthdayNumberBtn").click(function () {
@@ -80,23 +89,6 @@ $("#BirthdayNumberBtn").click(function () {
 
   alert(elementToDisplay);
 });
-//Pythagorean Alphabet
-var PythagAlpSinglePoint = ["a", "j", "s"];
-var PythagAlpDoublePoint = ["b", "k", "t"];
-var PythagAlpTriplePoint = ["c", "l", "u"];
-var PythagAlpFourthlyPoint = ["d", "m", "w"];
-var PythagAlpFifthlyPoint = ["e", "n", "x"];
-var PythagAlpSixthlyPoint = ["f", "o", "x"];
-var PythagAlpSeventhlyPoint = ["g", "p", "y"];
-var PythagAlpSeventhlyPoint = ["h", "q", "z"];
-var PythagAlpSeventhlyPoint = ["i", "r"];
-var vowels = ["a", "e", "i", "o", "u"];
-
-function PythagoreanAlphabetCalculation(
-  NameToCalculateFigureFrom,
-  AllowConstants,
-  AllowVowels
-) {}
 
 //the life path number
 function GetLifePathNumber(StringNumber) {
@@ -133,4 +125,110 @@ function GetLifePathNumberFromDays(StringNumbersDays) {
   } while (!regularNumbers.includes(sumElement));
 
   return sumElement;
+}
+
+//Pythagorean Alphabet for the expression number, soul urge and personality number
+var PythagAlpSinglePoint = ["a", "j", "s"];
+var PythagAlpDoublePoint = ["b", "k", "t"];
+var PythagAlpTriplePoint = ["c", "l", "u"];
+var PythagAlpFourthlyPoint = ["d", "m", "w"];
+var PythagAlpFifthlyPoint = ["e", "n", "x"];
+var PythagAlpSixthlyPoint = ["f", "o", "x"];
+var PythagAlpSeventhlyPoint = ["g", "p", "y"];
+var PythagAlpEightlyPoint = ["h", "q", "z"];
+var PythagAlpNineltyPoint = ["i", "r"];
+var vowels = ["a", "e", "i", "o", "u"];
+
+//calculate the expresion number
+function CalculateExpressionNumber(Name) {
+  var loweredName = Name.toLowerCase();
+  var nameCalc = 0;
+
+  for (var i = 0; i < loweredName.length; i++) {
+    if (PythagAlpSinglePoint.includes(loweredName[i])) {
+      nameCalc += 1;
+    }
+
+    if (PythagAlpDoublePoint.includes(loweredName[i])) {
+      nameCalc += 2;
+    }
+
+    if (PythagAlpTriplePoint.includes(loweredName[i])) {
+      nameCalc += 3;
+    }
+
+    if (PythagAlpFourthlyPoint.includes(loweredName[i])) {
+      nameCalc += 4;
+    }
+
+    if (PythagAlpFifthlyPoint.includes(loweredName[i])) {
+      nameCalc += 5;
+    }
+
+    if (PythagAlpSixthlyPoint.includes(loweredName[i])) {
+      nameCalc += 6;
+    }
+
+    if (PythagAlpSeventhlyPoint.includes(loweredName[i])) {
+      nameCalc += 7;
+    }
+
+    if (PythagAlpEightlyPoint.includes(loweredName[i])) {
+      nameCalc += 8;
+    }
+
+    if (PythagAlpNineltyPoint.includes(loweredName[i])) {
+      nameCalc += 9;
+    }
+  }
+
+  return GetLifePathNumberFromDays(String(nameCalc));
+}
+
+function CalculateWithVowels(Name, VowelsAllowed) {
+  console.log(Name);
+  var loweredName = Name.toLowerCase();
+  var nameCalc = 0;
+
+  for (var i = 0; i < loweredName.length; i++) {
+    if (vowels.includes(loweredName[i]) == VowelsAllowed) {
+      if (PythagAlpSinglePoint.includes(loweredName[i])) {
+        nameCalc += 1;
+      }
+
+      if (PythagAlpDoublePoint.includes(loweredName[i])) {
+        nameCalc += 2;
+      }
+
+      if (PythagAlpTriplePoint.includes(loweredName[i])) {
+        nameCalc += 3;
+      }
+
+      if (PythagAlpFourthlyPoint.includes(loweredName[i])) {
+        nameCalc += 4;
+      }
+
+      if (PythagAlpFifthlyPoint.includes(loweredName[i])) {
+        nameCalc += 5;
+      }
+
+      if (PythagAlpSixthlyPoint.includes(loweredName[i])) {
+        nameCalc += 6;
+      }
+
+      if (PythagAlpSeventhlyPoint.includes(loweredName[i])) {
+        nameCalc += 7;
+      }
+
+      if (PythagAlpEightlyPoint.includes(loweredName[i])) {
+        nameCalc += 8;
+      }
+
+      if (PythagAlpNineltyPoint.includes(loweredName[i])) {
+        nameCalc += 9;
+      }
+    } //end if statement for checking with the vowels
+  }
+
+  return GetLifePathNumberFromDays(String(nameCalc));
 }
