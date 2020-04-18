@@ -1,3 +1,4 @@
+/*Css for all the three pages*/
 body {
   background-color: darkblue;
   color: white;
@@ -8,7 +9,7 @@ body {
 .personalHeaderFooter h3 {
   text-align: center;
 }
-/*The section for the registartion page*/
+/*The css section for the registartion page regarding the stars*/
 .compulsory {
   color: orange;
 }

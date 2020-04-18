@@ -1,3 +1,6 @@
+/************************************************************************************
+ * All the javascript libary files to get access for the functionality of the server
+ ************************************************************************************/
 //all the javascript files for the server
 var express = require("express");
 var http = require("http");
@@ -10,12 +13,14 @@ var mongodb = require("mongodb");
 var mongoose = require("mongoose");
 var expressSession = require("express-session");
 
+/******************************************************************************************
+ * The configuration of the files used by the server, including the creation of the server,
+ * The application used and other key configruations
+ ******************************************************************************************/
+
 //creating the session for inital use
 app.use(expressSession({ secret: "sssshhhhh" }));
-// , function () {
-//   console.log("Sessions are usable in application");
-// });
-//default location for the application
+
 app.use(express.static(path.join(__dirname + "/view")));
 
 app.use(express.urlencoded({ extended: false }));
@@ -27,8 +32,10 @@ http.createServer(app).listen(7777, function () {
 //creating the connections to the database
 mongoose.connect(
   "mongodb://localhost:27017/NumerlogyTarotDB",
-  //{ useNewUrlParser: true },
-  { useUnifiedTopology: true, useNewUrlParser: true }
+  { useUnifiedTopology: true, useNewUrlParser: true },
+  function () {
+    console.log('\n\nConnected to mongo database "NumerlogyTarotDB" \n\n');
+  }
 );
 //creating the schema for reading the data
 var scehma = new mongoose.Schema({
@@ -43,7 +50,12 @@ var scehma = new mongoose.Schema({
 //creating the connection to the collection itself
 var users = mongoose.model("users", scehma);
 
-//setting the routes to the application
+/**********************************************************************************************
+ * The redirection of the routes for the server, where the server uses to connect to the
+ * different pages of the web application
+ **********************************************************************************************/
+
+//setting the routes to the application and the directions to the three pages
 app.get("/", function (req, res) {
   let filename = "./index.html";
   fs.readFile(filename, function (err, data) {
@@ -54,42 +66,6 @@ app.get("/", function (req, res) {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.write(data);
       return res.end();
-    }
-  });
-});
-
-//the method to get the user details with the mongodb server and check them to see if they're correct
-app.post("/checkuserdetails", function (req, res) {
-  var sess = req.session;
-  //allow session to last three months
-  //sess.cookie.maxAge = 92*24 * 60 * 60 * 1000
-  //allow session to last a day
-  sess.cookie.maxAge = 24 * 60 * 60 * 1000;
-  // This user should log in again after restarting the browser
-  sess.cookie.expires = false;
-  var StableDocs;
-
-  //console.log("body: " + req.body.username + " " + req.body.password);
-
-  users.find({ username: req.body.username }, function (err, docs) {
-    if (err) {
-      console.log(err);
-    } else {
-      StableDocs = docs;
-      if (StableDocs[0] !== undefined) {
-        sess.username = req.body.username;
-        sess.password = req.body.password;
-        sess.firstname = StableDocs[0].name;
-        sess.mname = StableDocs[0].middlename;
-        sess.surname = StableDocs[0].surname;
-        sess.DOB = StableDocs[0].DOB;
-      }
-
-      console.log(sess);
-
-      HttpMsgs.sendJSON(req, res, {
-        items: docs,
-      });
     }
   });
 });
@@ -115,6 +91,60 @@ app.get("/login", function (req, res) {
   });
 });
 
+//redirect to the view account details
+app.get("/ViewAccount", function (req, res) {
+  let filename = "./view/ViewAccount.html";
+  fs.readFile(filename, function (err, data) {
+    if (err) {
+      res.writeHead(404, { "Content-Type": "text/html" });
+      return res.end("404 Not Found");
+    } else {
+      es.writeHead(
+        200,
+        { "Content-Type": "text/html" },
+        { Location: "http://localhost:7777/login" }
+      );
+      res.write(data);
+      return res.end();
+    }
+  });
+});
+//end of the page redirection section
+
+/**********************************************************************************************
+ * The crud section of the web application, which, in order, is the Read, Create, update and
+ * delete sections of the application
+ ***********************************************************************************************/
+
+//the method to get the user details with the mongodb server and check them to see if they're correct
+app.post("/checkuserdetails", function (req, res) {
+  //capture the current version of the sessions
+  var sess = req.session;
+  var StableDocs;
+
+  users.find({ username: req.body.username }, function (err, docs) {
+    if (err) {
+      console.log(err);
+    } else {
+      StableDocs = docs;
+      if (StableDocs[0] !== undefined) {
+        sess.username = req.body.username;
+        sess.password = req.body.password;
+        sess.firstname = StableDocs[0].name;
+        sess.mname = StableDocs[0].middlename;
+        sess.surname = StableDocs[0].surname;
+        sess.DOB = StableDocs[0].DOB;
+      }
+
+      console.log(sess);
+
+      HttpMsgs.sendJSON(req, res, {
+        items: docs,
+      });
+    }
+  });
+});
+
 //register the users into the application
 app.post("/register", function (req, res) {
   var sess = req.session;
@@ -137,7 +167,6 @@ app.post("/register", function (req, res) {
     password: password,
   };
 
-  //console.log(registerUser);
   //mongo files and connections
   var MongoClient = mongodb.MongoClient;
   var url = "mongodb://localhost:27017";
@@ -179,45 +208,6 @@ app.post("/register", function (req, res) {
       });
     }
   });
-});
-
-//redirect to the details
-app.get("/ViewAccount", function (req, res) {
-  let filename = "./view/ViewAccount.html";
-  fs.readFile(filename, function (err, data) {
-    if (err) {
-      res.writeHead(404, { "Content-Type": "text/html" });
-      return res.end("404 Not Found");
-    } else {
-      es.writeHead(
-        200,
-        { "Content-Type": "text/html" },
-        { Location: "http://localhost:7777/login" }
-      );
-      res.write(data);
-      return res.end();
-    }
-  });
-});
-//getting the user details to the server
-app.post("/GetUserDetails", function (req, res) {
-  var sess = req.session;
-
-  if (sess.username) {
-    var doc = {
-      username: sess.username,
-      password: sess.password,
-      firstname: sess.firstname,
-      mname: sess.mname,
-      surname: sess.surname,
-      DOB: sess.DOB,
-    };
-    HttpMsgs.sendJSON(req, res, {
-      items: doc,
-    });
-  } else {
-    res.redirect("/");
-  }
 });
 
 //the function to update the user details
@@ -268,6 +258,32 @@ app.post("/deleteAccount", function (req, res) {
       res.redirect("/");
     }
   });
+});
+
+/**************************************************************************************************
+ * Other section of the application functionality, which both includes getting the user details
+ * from the session and the logout. More on the way
+ *************************************************************************************************/
+
+//getting the user details to the server
+app.post("/GetUserDetails", function (req, res) {
+  var sess = req.session;
+
+  if (sess.username) {
+    var doc = {
+      username: sess.username,
+      password: sess.password,
+      firstname: sess.firstname,
+      mname: sess.mname,
+      surname: sess.surname,
+      DOB: sess.DOB,
+    };
+    HttpMsgs.sendJSON(req, res, {
+      items: doc,
+    });
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.post("/logout", function (req, res) {

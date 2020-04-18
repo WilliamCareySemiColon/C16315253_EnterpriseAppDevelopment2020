@@ -35,7 +35,7 @@
     </header>
     <section class="col-sm-12">
     <div class="form-group col-sm-6">
-        <!--The name of the user, which is the first name, middle name, surname and username-->
+        <!--The user details section to be displayed to the user. Each section is pulled from the session-->
         <label for="fname">First name: </label><br />
         <input type="text" id="fname" name="fname" class="form-control" disabled = "disabled"/><br />
         <label for="mname">Middle name:</label><br />
@@ -44,9 +44,6 @@
         <input type="text" id="lname" name="lname" class="form-control" disabled = "disabled"/><br />
         <label for="reguname">Username: </label><br />
         <input type="text" id="reguname" name="reguname" class="form-control" disabled = "disabled" /><br />
-        <!-- <label for="email">Email: </label><br /> -->
-        <!--The email, DOB, password and confirm password-->
-        <!-- <input type="email" id="email" name="email" class="form-control" disabled = "disabled"/><br /> -->
         <label for="DOB">Date of Birth: </label><br />
         <div class="input-group date" data-provide="datepicker">
             <input type="text" class="form-control" id="DOB" name="DOB" disabled = "disabled"/>
@@ -57,6 +54,7 @@
         <br />
         <label for="password">Password: </label><br />
         <input type="password" id="password" name="password" class="form-control" disabled = "disabled"/><br />
+        <!--The buttons for the user to use-->
         <button class="btn btn-warning" id="CancelEditing" disabled = "disabled">Cancel Editing</button>
         <button class="btn btn-success" id="SubmitDetails" disabled = "disabled">Submit Details</button>
         <button class="btn btn-default" id="EditDetails"> Edit Details </button>
@@ -73,8 +71,8 @@
       <!--Script files for the functionality of the application and to be able to use the JQuery-->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <!--Local js files used-->
       <script src="JS/bootstrap-datepicker.js"></script>
-      <script src="JS/home.js"></script>
       <script src = "JS/ViewAccount.js"></script>
     </footer>
   </body>

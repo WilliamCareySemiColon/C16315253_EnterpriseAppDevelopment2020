@@ -1,7 +1,5 @@
-$(".datepicker").datepicker({
-  dateFormat: "dd/mm/yyyy",
-  startDate: new Date(),
-  maxDate: "now",
+$("#Home").click(function () {
+  window.location.replace("/home.html");
 });
 
 var Storeddata = {};
@@ -31,6 +29,12 @@ $(document).ready(function () {
     error: function (data) {
       console.log(data);
     },
+  }); //end ajax call
+
+  $(".datepicker").datepicker({
+    dateFormat: "dd/mm/yyyy",
+    startDate: new Date(),
+    maxDate: "now",
   });
 });
 
@@ -44,6 +48,7 @@ $("#CancelEditing").click(function () {
   RemoveChangesFromTextFields();
 });
 
+//the method handler to update the user details
 $("#SubmitDetails").click(function () {
   var fname = document.getElementById("fname").value;
   var mname = document.getElementById("mname").value;
@@ -65,14 +70,13 @@ $("#SubmitDetails").click(function () {
       password: password,
     };
     if (confirm("Are you sure you want to modify the details")) {
-      //alert("accepted");
       $.ajax({
         type: "POST",
         data: data,
         dataType: "json",
         url: "/UpdateUserAccountDetails",
         success: function (data) {
-          console.log(data);
+          alert("Successfully modified the users details");
           Storeddata.firstname = data.items.firstname;
           Storeddata.mname = data.items.middlename;
           Storeddata.surname = data.items.surname;
@@ -91,6 +95,7 @@ $("#SubmitDetails").click(function () {
   }
 });
 
+//the method handler to allow the user to delete their account if they wish
 $("#DeleteAccount").click(function () {
   if (confirm("are you sure you want to delete your account")) {
     data = {
@@ -101,13 +106,13 @@ $("#DeleteAccount").click(function () {
       data: data,
       url: "/deleteAccount",
       success: function () {
+        alert("Users details are successfully deleted");
         window.location.replace("http://localhost:7777/");
       },
       error: function () {
         console.log("error in deleting the account");
       },
     });
-    //alert("Hello World");
   }
 });
 
@@ -122,7 +127,7 @@ function SetFieldsDisabled(Value) {
   document.getElementById("SubmitDetails").disabled = Value;
   document.getElementById("EditDetails").disabled = !Value;
 }
-//change the text to the way they were before
+//method to change the text to what is stored in the session, whther the user cancels the modifying details or submits them
 function RemoveChangesFromTextFields() {
   document.getElementById("fname").value = Storeddata.firstname;
   document.getElementById("mname").value = Storeddata.mname;

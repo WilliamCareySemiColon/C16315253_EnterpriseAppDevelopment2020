@@ -1,4 +1,6 @@
-//The login button fields
+/**********************************************************************************************************
+ * The login section of the index.html page for the button and other functionality handlers
+ **********************************************************************************************************/
 $("#RegisterInsteadBtn").click(function () {
   ClearLoginDetails();
   $("#Register").show();
@@ -18,7 +20,7 @@ $("#LoginBtn").click(function () {
     username: username,
     password: password,
   };
-
+  //ajax call to nake sure the user details are corrrect
   $.ajax({
     type: "POST",
     data: data,
@@ -50,6 +52,15 @@ $("#LoginBtn").click(function () {
   }); //end ajax
 });
 
+//methods for clearing the fieids
+function ClearLoginDetails() {
+  document.getElementById("loguname").value = "";
+  document.getElementById("logpass").value = "";
+}
+
+/************************************************************************************
+ * The register buttons div section functionality
+ ************************************************************************************/
 //register button fields instead
 $("#LoginInsteadBtn").click(function () {
   ClearRegisterDetails();
@@ -72,6 +83,7 @@ $("#RegisterBtn").click(function () {
   var regpass = document.getElementById("regpass").value;
   var conpass = document.getElementById("conpass").value;
 
+  //method to validate the fields inputted by the user
   var flag = Validate(fname, lname, reguname, DOB, regpass, conpass);
 
   if (flag) {
@@ -82,9 +94,6 @@ $("#RegisterBtn").click(function () {
     var year = DOBDate.getFullYear();
     var DOBParameter = day + "/" + month + "/" + year;
 
-    //console.log(DOBParameter);
-
-    //alert("test method for now");
     var data = {
       username: reguname,
       password: regpass,
@@ -99,6 +108,7 @@ $("#RegisterBtn").click(function () {
       password: regpass,
     };
 
+    //exterior ajax call to check if the user details already exist
     $.ajax({
       type: "POST",
       data: data,
@@ -108,8 +118,7 @@ $("#RegisterBtn").click(function () {
         console.log(data.items[0]);
         //if the user does not exist
         if (data.items[0] === undefined) {
-          alert("User with username does not exist");
-          //implement the register details later
+          //interior ajax call to register the user details
           $.ajax({
             type: "POST",
             data: registerData,
@@ -135,15 +144,9 @@ $("#RegisterBtn").click(function () {
         console.log("error\n\n");
         console.log(data);
       },
-    }); //end ajax
+    }); //end exterior ajax call
   }
 });
-
-//methods for clearing the fieids
-function ClearLoginDetails() {
-  document.getElementById("loguname").value = "";
-  document.getElementById("logpass").value = "";
-}
 
 function ClearRegisterDetails() {
   document.getElementById("fname").value = "";
@@ -155,11 +158,14 @@ function ClearRegisterDetails() {
   document.getElementById("regpass").value = "";
   document.getElementById("conpass").value = "";
 }
-//to ensure the date picker is in the correct format
-$(".datepicker").datepicker({
-  dateFormat: "dd/mm/yyyy",
-  startDate: new Date(),
-  maxDate: "now",
+//make sure the date picker is created when the file is ready
+$(document).ready(function () {
+  //to ensure the date picker is in the correct format
+  $(".datepicker").datepicker({
+    dateFormat: "dd/mm/yyyy",
+    startDate: new Date(),
+    maxDate: "now",
+  });
 });
 
 //function to valiadate all the fields of the registration form
