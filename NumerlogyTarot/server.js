@@ -102,7 +102,7 @@ app.get("/ViewAccount", function (req, res) {
       es.writeHead(
         200,
         { "Content-Type": "text/html" },
-        { Location: "http://localhost:7777/login" }
+        { Location: "http://localhost:7777/ViewAccount" }
       );
       res.write(data);
       return res.end();
