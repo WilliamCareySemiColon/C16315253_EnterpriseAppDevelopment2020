@@ -76,29 +76,74 @@ $("#LifepathBtn").click(function () {
   div.appendChild(lifepathP);
 
   GenerateNumerlogyTarotDiv("lifepath", elementToDisplay, div);
-
-  alert(elementToDisplay);
 });
 
 $("#ExpressionNumberBtn").click(function () {
-  var name = Storeddata.firstname;
+  var name = Storeddata.firstname + Storeddata.mname + Storeddata.surname;
 
   var element = CalculateExpressionNumber(name);
-  alert(element);
+
+  //getting the div and create the documents to load onto the page
+  var div = document.getElementById("ExpressionNumberDiv");
+
+  //craetion of the elements and appending them together
+  var lifepathH3 = document.createElement("h3");
+  var text = document.createTextNode("Expression Number Description");
+  lifepathH3.appendChild(text);
+  var lifepathP = document.createElement("p");
+  var lifepathPText = document.createTextNode(ExpressionNumber);
+  lifepathP.appendChild(lifepathPText);
+
+  //appending the created elements together
+  div.appendChild(lifepathH3);
+  div.appendChild(lifepathP);
+
+  GenerateNumerlogyTarotDiv("Expression Number", element, div);
 });
 
 $("#SoulUrgeBtn").click(function () {
-  var name = Storeddata.firstname;
+  var name = Storeddata.firstname + Storeddata.mname + Storeddata.surname;
 
   var element = CalculateWithVowels(name, true);
-  alert(element);
+
+  //getting the div and create the documents to load onto the page
+  var div = document.getElementById("SoulUrgeNumber");
+
+  //craetion of the elements and appending them together
+  var lifepathH3 = document.createElement("h3");
+  var text = document.createTextNode("Soul Urge Description");
+  lifepathH3.appendChild(text);
+  var lifepathP = document.createElement("p");
+  var lifepathPText = document.createTextNode(HeartsDesireNumber);
+  lifepathP.appendChild(lifepathPText);
+
+  //appending the created elements together
+  div.appendChild(lifepathH3);
+  div.appendChild(lifepathP);
+
+  GenerateNumerlogyTarotDiv("Soul Urge Number", element, div);
 });
 
 $("#PersonalityNumberBtn").click(function () {
-  var name = Storeddata.firstname;
+  var name = Storeddata.firstname + Storeddata.mname + Storeddata.surname;
 
   var element = CalculateWithVowels(name, false);
-  alert(element);
+  //getting the div and create the documents to load onto the page
+  var div = document.getElementById("PersonalityNumberDiv");
+
+  //craetion of the elements and appending them together
+  var lifepathH3 = document.createElement("h3");
+  var text = document.createTextNode("Personality Number Description");
+  lifepathH3.appendChild(text);
+  var lifepathP = document.createElement("p");
+  var lifepathPText = document.createTextNode(PersonalityNumber);
+  lifepathP.appendChild(lifepathPText);
+
+  //appending the created elements together
+  div.appendChild(lifepathH3);
+  div.appendChild(lifepathP);
+
+  GenerateNumerlogyTarotDiv("Personality Number", element, div);
 });
 
 $("#BirthdayNumberBtn").click(function () {
@@ -106,7 +151,22 @@ $("#BirthdayNumberBtn").click(function () {
 
   elementToDisplay = GetLifePathNumberFromDays(stringDateObj[0]);
 
-  alert(elementToDisplay);
+  //getting the div and create the documents to load onto the page
+  var div = document.getElementById("BirthdayNumberDiv");
+
+  //craetion of the elements and appending them together
+  var lifepathH3 = document.createElement("h3");
+  var text = document.createTextNode("Birthday Number Description");
+  lifepathH3.appendChild(text);
+  var lifepathP = document.createElement("p");
+  var lifepathPText = document.createTextNode(BirthdayNumberDetails);
+  lifepathP.appendChild(lifepathPText);
+
+  //appending the created elements together
+  div.appendChild(lifepathH3);
+  div.appendChild(lifepathP);
+
+  GenerateNumerlogyTarotDiv("Birthday Number", elementToDisplay, div);
 });
 
 //the life path number
@@ -205,7 +265,7 @@ function CalculateExpressionNumber(Name) {
 }
 
 function CalculateWithVowels(Name, VowelsAllowed) {
-  console.log(Name);
+  //console.log(Name);
   var loweredName = Name.toLowerCase();
   var nameCalc = 0;
 
