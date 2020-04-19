@@ -60,9 +60,24 @@ $("#LifepathBtn").click(function () {
 
   elementToDisplay = GetLifePathNumberFromDays(String(elementToDisplay));
 
-  alert(elementToDisplay);
+  //getting the div and create the documents to load onto the page
+  var div = document.getElementById("LifepathDiv");
 
-  alert(LifepathNumberDesc);
+  //craetion of the elements and appending them together
+  var lifepathH3 = document.createElement("h3");
+  var text = document.createTextNode("Life Path Description");
+  lifepathH3.appendChild(text);
+  var lifepathP = document.createElement("p");
+  var lifepathPText = document.createTextNode(LifepathNumberDesc);
+  lifepathP.appendChild(lifepathPText);
+
+  //appending the created elements together
+  div.appendChild(lifepathH3);
+  div.appendChild(lifepathP);
+
+  GenerateNumerlogyTarotDiv("lifepath", elementToDisplay, div);
+
+  alert(elementToDisplay);
 });
 
 $("#ExpressionNumberBtn").click(function () {
@@ -237,6 +252,25 @@ function CalculateWithVowels(Name, VowelsAllowed) {
   return GetLifePathNumberFromDays(String(nameCalc));
 }
 
+function GenerateNumerlogyTarotDiv(HeaderContext, NumberPassed, DivToAppendTo) {
+  var textGnerated = "Your " + HeaderContext + " is " + NumberPassed;
+  //creating the header generated into the application
+  var h4 = document.createElement("h4");
+  var h4Text = document.createTextNode(textGnerated);
+  h4.appendChild(h4Text);
+
+  var p = document.createElement("p");
+  var pText = document.createTextNode(
+    NumerologyNumberDefiantions[NumberPassed]
+  );
+  p.appendChild(pText);
+
+  //apendding them to the div section
+  DivToAppendTo.appendChild(h4);
+  DivToAppendTo.appendChild(p);
+}
+
+//function to create the div used in the application
 /***************************************************************************************************************************
  * Content under this comment are from another JS file duplicated here as it is uncertain how to use them in their native
  * area
