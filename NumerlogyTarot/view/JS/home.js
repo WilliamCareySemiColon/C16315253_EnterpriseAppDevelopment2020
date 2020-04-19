@@ -85,7 +85,7 @@ $("#PersonalityNumberBtn").click(function () {
 $("#BirthdayNumberBtn").click(function () {
   var stringDateObj = Storeddata.DOB.split("/");
 
-  elementToDisplay = GetLifePathNumberFromDays(stringDateObj[1]);
+  elementToDisplay = GetLifePathNumberFromDays(stringDateObj[0]);
 
   alert(elementToDisplay);
 });
@@ -139,7 +139,7 @@ var PythagAlpEightlyPoint = ["h", "q", "z"];
 var PythagAlpNineltyPoint = ["i", "r"];
 var vowels = ["a", "e", "i", "o", "u"];
 
-//calculate the expresion number
+//calculate the expresion number - also known as destiny number
 function CalculateExpressionNumber(Name) {
   var loweredName = Name.toLowerCase();
   var nameCalc = 0;
