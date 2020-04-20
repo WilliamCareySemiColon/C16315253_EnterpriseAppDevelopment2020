@@ -325,12 +325,12 @@ function GenerateNumerlogyTarotDiv(HeaderContext, NumberPassed, DivToAppendTo) {
   );
   p.appendChild(pText);
 
-  //apendding them to the div section
+  //appendding them to the div section
   DivToAppendTo.appendChild(h4);
   DivToAppendTo.appendChild(p);
 
   var data = {
-    number: NumberPassed,
+    number: NumberPassed % 22,
   };
 
   $.ajax({
@@ -339,7 +339,42 @@ function GenerateNumerlogyTarotDiv(HeaderContext, NumberPassed, DivToAppendTo) {
     dataType: "json",
     url: "/GetTarotDetails",
     success: function (data) {
-      console.log(data);
+      //create the tarot section for the application
+      var MainTarotSection = document.createElement("h3");
+      var MainTarotSectionText = document.createTextNode("Related Tarot card");
+      MainTarotSection.appendChild(MainTarotSectionText);
+
+      var tarotH4 = document.createElement("h4");
+      var tarotH4Text = document.createTextNode(data.items.name);
+      tarotH4.appendChild(tarotH4Text);
+
+      var tarotH6 = document.createElement("h6");
+      var tarotH6Text = document.createTextNode(
+        "Type: " + data.items.type + " Number: " + data.items.value
+      );
+      tarotH6.appendChild(tarotH6Text);
+
+      var descritpion = document.createElement("p");
+      descritpion.innerText = data.items.desc;
+
+      var meaningUp = document.createElement("p");
+      var meaningUpText = document.createTextNode(
+        "Upright meaning: " + data.items.meaning_up
+      );
+      meaningUp.appendChild(meaningUpText);
+
+      var meaningDown = document.createElement("p");
+      var meaningDownText = document.createTextNode(
+        "Reversed meaning: " + data.items.meaning_rev
+      );
+      meaningDown.appendChild(meaningDownText);
+
+      //appendding them to the div section
+      DivToAppendTo.appendChild(tarotH4);
+      DivToAppendTo.appendChild(tarotH6);
+      DivToAppendTo.appendChild(descritpion);
+      DivToAppendTo.appendChild(meaningUp);
+      DivToAppendTo.appendChild(meaningDown);
     },
     error: function (data) {
       console.log(data);
