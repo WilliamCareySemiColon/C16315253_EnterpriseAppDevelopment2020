@@ -13,7 +13,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var mongoose = require("mongoose");
 var expressSession = require("express-session");
-
+var bcrypt = require("bcrypt");
 /******************************************************************************************
  * The configuration of the files used by the server, including the creation of the server,
  * The application used and other key configruations
@@ -50,6 +50,9 @@ var scehma = new mongoose.Schema({
 });
 //creating the connection to the collection itself
 var users = mongoose.model("users", scehma);
+
+//the salts for the hashing of the password
+const saltRounds = 10;
 
 /***********************************************************************************************************
  * The REST API CONNECTION to the TAROT API. Get the major archanas from the application and set them into
@@ -185,6 +188,8 @@ app.post("/checkuserdetails", function (req, res) {
   var sess = req.session;
   var StableDocs;
 
+  var password = req.body.password;
+
   users.find({ username: req.body.username }, function (err, docs) {
     if (err) {
       console.log(err);
@@ -201,8 +206,18 @@ app.post("/checkuserdetails", function (req, res) {
 
       console.log(sess);
 
-      HttpMsgs.sendJSON(req, res, {
-        items: docs,
+      console.log(StableDocs[0].password);
+
+      var ReturnDocs = docs;
+
+      bcrypt.compare(password, StableDocs[0].password).then(function (result) {
+        console.log(result);
+        if (result) {
+          ReturnDocs[0].password = req.body.password;
+        }
+        HttpMsgs.sendJSON(req, res, {
+          items: ReturnDocs,
+        });
       });
     }
   });
@@ -220,56 +235,64 @@ app.post("/register", function (req, res) {
   var DOB = req.body.DOB;
   var password = req.body.password;
 
-  var registerUser = {
-    _id: _id,
-    username: username,
-    name: fname,
-    middlename: mname,
-    surname: lname,
-    DOB: DOB,
-    password: password,
-  };
-
-  //mongo files and connections
-  var MongoClient = mongodb.MongoClient;
-  var url = "mongodb://localhost:27017";
-
-  MongoClient.connect(url, { useUnifiedTopology: true }, async function (
-    err,
-    db
-  ) {
+  bcrypt.hash(password, saltRounds, function (err, hash) {
     if (err) {
-      db.close();
-      HttpMsgs.sendJSON(req, res, {
-        items: "failure " + err,
-      });
-      //throw err;
-    } else {
-      console.log("Connected to the mongo server on localhost 27017");
-      //the database needed to connect to
-      var database = await db.db("NumerlogyTarotDB");
-      console.log("Connected to the database NumerlogyTarotDB");
-      //the collection to connect to
-      var collection = await database.collection("users");
-      console.log("Connected to the collections users");
-      //inserting the sample data created above
-      var docs = await collection.insertOne(registerUser);
-      console.log("writing to the collection");
-      console.log("\n\nresult " + docs);
-
-      db.close();
-      //appending the information to the session too
-      sess.username = username;
-      sess.password = password;
-      sess.firstname = fname;
-      sess.mname = mname;
-      sess.surname = lname;
-      sess.DOB = DOB;
-      //sending the information back to the client
-      HttpMsgs.sendJSON(req, res, {
-        items: "success in inserting data into database",
-      });
+      console.log(err);
     }
+    var hashedpass = hash;
+    console.log(hashedpass);
+
+    var registerUser = {
+      _id: _id,
+      username: username,
+      name: fname,
+      middlename: mname,
+      surname: lname,
+      DOB: DOB,
+      password: hashedpass,
+    };
+
+    //mongo files and connections
+    var MongoClient = mongodb.MongoClient;
+    var url = "mongodb://localhost:27017";
+
+    MongoClient.connect(url, { useUnifiedTopology: true }, async function (
+      err,
+      db
+    ) {
+      if (err) {
+        db.close();
+        HttpMsgs.sendJSON(req, res, {
+          items: "failure " + err,
+        });
+        //throw err;
+      } else {
+        console.log("Connected to the mongo server on localhost 27017");
+        //the database needed to connect to
+        var database = await db.db("NumerlogyTarotDB");
+        console.log("Connected to the database NumerlogyTarotDB");
+        //the collection to connect to
+        var collection = await database.collection("users");
+        console.log("Connected to the collections users");
+        //inserting the sample data created above
+        var docs = await collection.insertOne(registerUser);
+        console.log("writing to the collection");
+        console.log("\n\nresult " + docs);
+
+        db.close();
+        //appending the information to the session too
+        sess.username = username;
+        sess.password = password;
+        sess.firstname = fname;
+        sess.mname = mname;
+        sess.surname = lname;
+        sess.DOB = DOB;
+        //sending the information back to the client
+        HttpMsgs.sendJSON(req, res, {
+          items: "success in inserting data into database",
+        });
+      }
+    });
   });
 });
 
@@ -283,29 +306,37 @@ app.post("/UpdateUserAccountDetails", function (req, res) {
   var DOB = req.body.DOB;
   var password = req.body.password;
 
-  users.findOne({ username: username }, async function (err, doc) {
+  bcrypt.hash(password, saltRounds, function (err, hash) {
     if (err) {
       console.log(err);
-    } else {
-      doc.name = firstname;
-      doc.middlename = middlename;
-      doc.surname = surname;
-      doc.DOB = DOB;
-      doc.password = password;
-
-      await doc.save();
-
-      sess.password = password;
-      sess.firstname = fname;
-      sess.mname = middlename;
-      sess.surname = surname;
-      sess.DOB = DOB;
-
-      HttpMsgs.sendJSON(req, res, {
-        items: doc,
-      });
     }
-  });
+    var hashedpass = hash;
+    console.log(hashedpass);
+
+    users.findOne({ username: username }, async function (err, doc) {
+      if (err) {
+        console.log(err);
+      } else {
+        doc.name = firstname;
+        doc.middlename = middlename;
+        doc.surname = surname;
+        doc.DOB = DOB;
+        doc.password = hashedpass;
+
+        await doc.save();
+
+        sess.password = password;
+        sess.firstname = firstname;
+        sess.mname = middlename;
+        sess.surname = surname;
+        sess.DOB = DOB;
+
+        HttpMsgs.sendJSON(req, res, {
+          items: doc,
+        });
+      }
+    });
+  }); //end the update method
 });
 
 app.post("/deleteAccount", function (req, res) {

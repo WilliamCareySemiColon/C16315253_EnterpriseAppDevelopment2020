@@ -77,7 +77,8 @@ $("#SubmitDetails").click(function () {
         url: "/UpdateUserAccountDetails",
         success: function (data) {
           alert("Successfully modified the users details");
-          Storeddata.firstname = data.items.firstname;
+          console.log(data);
+          Storeddata.firstname = data.items.name;
           Storeddata.mname = data.items.middlename;
           Storeddata.surname = data.items.surname;
           Storeddata.DOB = data.items.DOB;
@@ -140,6 +141,7 @@ function RemoveChangesFromTextFields() {
 function Validate(firstname, lastname, DOB, regpass) {
   //regex strings
   var datere = /^[a-zA-Z]+$/;
+  var passwordregex = /^(?=(.*[a-zA-Z].*){2,})(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$/;
 
   if (firstname === "" || firstname === undefined) {
     alert("Firstname needs to be filled in correctly");
@@ -163,8 +165,17 @@ function Validate(firstname, lastname, DOB, regpass) {
     }
   }
 
-  if (regpass === "" || regpass === undefined || regpass.length < 8) {
-    alert("Password needs to be filled in correctly in 8 or more charaters");
+  if (
+    regpass === "" ||
+    regpass === undefined ||
+    regpass.length < 8 ||
+    regpass.length > 15 ||
+    !passwordregex.test(regpass)
+  ) {
+    alert(
+      "Password needs to be filled in correctly in, between 8 and 15 charaters," +
+        "contain at least two letters (not case sensitive), one number, one special character"
+    );
     return false;
   }
 

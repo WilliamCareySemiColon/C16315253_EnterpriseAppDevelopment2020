@@ -173,6 +173,9 @@ function Validate(firstname, lastname, reguname, DOB, regpass, conpass) {
   //regex strings
   var datere = /^[a-zA-Z]+$/;
 
+  //http://regexlib.com/(X(1)A(LfhPFy1dGQ3hvH3PcsjaD7HVu3iHaA5imOvYnLx30Y8tEK-McG7D5hG4zEU3hgKGSYrWk9uJE3s7L8H3-S6DdFWcQPLjFQmtGo6Nmj9t3LYchpMVfR0BrNB80_YPDJ6EwU2NabSeMTch3Do_0VAtwgRLWKSahj7NUbfwB1cIRasu3lZFhN_ULvvWPHRPZJMN0))/REDetails.aspx?regexp_id=2799
+  var passwordregex = /^(?=(.*[a-zA-Z].*){2,})(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$/;
+
   if (firstname === "" || firstname === undefined) {
     alert("Firstname needs to be filled in correctly");
     return false;
@@ -198,8 +201,17 @@ function Validate(firstname, lastname, reguname, DOB, regpass, conpass) {
     return false;
   }
 
-  if (regpass === "" || regpass === undefined || regpass.length < 8) {
-    alert("Password needs to be filled in correctly in 8 or more charaters");
+  if (
+    regpass === "" ||
+    regpass === undefined ||
+    regpass.length < 8 ||
+    regpass.length > 15 ||
+    !passwordregex.test(regpass)
+  ) {
+    alert(
+      "Password needs to be filled in correctly in, between 8 and 15 charaters," +
+        "contain at least two letters (not case sensitive), one number, one special character"
+    );
     return false;
   }
 
