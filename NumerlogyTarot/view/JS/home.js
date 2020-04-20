@@ -328,6 +328,23 @@ function GenerateNumerlogyTarotDiv(HeaderContext, NumberPassed, DivToAppendTo) {
   //apendding them to the div section
   DivToAppendTo.appendChild(h4);
   DivToAppendTo.appendChild(p);
+
+  var data = {
+    number: NumberPassed,
+  };
+
+  $.ajax({
+    type: "POST",
+    data: data,
+    dataType: "json",
+    url: "/GetTarotDetails",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  }); //end ajax call
 }
 
 //function to create the div used in the application

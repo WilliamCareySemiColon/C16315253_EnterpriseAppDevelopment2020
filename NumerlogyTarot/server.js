@@ -4,6 +4,7 @@
 //all the javascript files for the server
 var express = require("express");
 var http = require("http");
+var https = require("https");
 var app = express();
 var fs = require("fs");
 var path = require("path");
@@ -49,6 +50,68 @@ var scehma = new mongoose.Schema({
 });
 //creating the connection to the collection itself
 var users = mongoose.model("users", scehma);
+
+/***********************************************************************************************************
+ * The REST API CONNECTION to the TAROT API. Get the major archanas from the application and set them into
+ * a variable to be read from later as part of the numerlogy and tarot application
+ *
+ * This is the confugruation section
+ **********************************************************************************************************/
+
+//get all the major acadna cards from the api
+var JSONObject = {};
+var flag = false;
+
+//the url which the code can be found
+//https://nodejs.org/api/http.html#http_http_get_options_callback
+http
+  .get(
+    "http://rws-cards-api.herokuapp.com/api/v1/cards/search?type=major",
+    (res) => {
+      console.log(
+        "Requesting information from the site" +
+          " http://rws-cards-api.herokuapp.com/api/v1/cards/search?type=major"
+      );
+      const { statusCode } = res;
+      const contentType = res.headers["content-type"];
+      //console.log(res);
+      let error;
+      if (statusCode !== 200) {
+        error = new Error("Request Failed.\n" + `Status Code: ${statusCode}`);
+      } else if (!/^application\/json/.test(contentType)) {
+        error = new Error(
+          "Invalid content-type.\n" +
+            `Expected application/json but received ${contentType}`
+        );
+      }
+      if (error) {
+        console.error(error.message);
+        // Consume response data to free up memory
+        res.resume();
+        return;
+      }
+
+      res.setEncoding("utf8");
+      let rawData = "";
+      res.on("data", (chunk) => {
+        rawData += chunk;
+      });
+      res.on("end", () => {
+        try {
+          const parsedData = JSON.parse(rawData);
+          //assign to the global variable - this is the only write section
+          JSONObject = parsedData;
+          //console.log(JSONObject);
+          flag = true;
+        } catch (e) {
+          console.error(e.message);
+        }
+      });
+    }
+  )
+  .on("error", (e) => {
+    console.error(`Got error: ${e.message}`);
+  });
 
 /**********************************************************************************************
  * The redirection of the routes for the server, where the server uses to connect to the
@@ -257,6 +320,27 @@ app.post("/deleteAccount", function (req, res) {
       sess.destroy();
       res.redirect("/");
     }
+  });
+});
+
+/**************************************************************************************************************
+ * Make the rest call to the api worked with. The url for the description of the rest architecture is at the
+ * following: https://github.com/ekelen/tarot-api
+ **************************************************************************************************************/
+
+app.post("/GetTarotDetails", async function (req, res) {
+  var sess = req.session;
+
+  var numberPara = req.body.number;
+
+  if (numberPara === 0) {
+    numberPara = 21;
+  }
+
+  var objectToReturn = flag ? JSONObject.cards[numberPara - 1] : null;
+
+  HttpMsgs.sendJSON(req, res, {
+    items: objectToReturn,
   });
 });
 
