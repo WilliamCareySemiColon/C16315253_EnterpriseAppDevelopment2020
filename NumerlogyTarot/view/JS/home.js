@@ -76,6 +76,20 @@ $("#LifepathBtn").click(function () {
   div.appendChild(lifepathP);
 
   GenerateNumerlogyTarotDiv("lifepath", elementToDisplay, div);
+
+  document.getElementById("LifepathBtnHideDetails").disabled = false;
+});
+
+$("#LifepathBtnShowDetails").click(function () {
+  document.getElementById("LifepathDiv").style.visibility = "visible";
+  document.getElementById("LifepathBtnShowDetails").disabled = true;
+  document.getElementById("LifepathBtnHideDetails").disabled = false;
+});
+
+$("#LifepathBtnHideDetails").click(function () {
+  document.getElementById("LifepathDiv").style.visibility = "hidden";
+  document.getElementById("LifepathBtnShowDetails").disabled = false;
+  document.getElementById("LifepathBtnHideDetails").disabled = true;
 });
 
 $("#ExpressionNumberBtn").click(function () {
@@ -99,6 +113,20 @@ $("#ExpressionNumberBtn").click(function () {
   div.appendChild(lifepathP);
 
   GenerateNumerlogyTarotDiv("Expression Number", element, div);
+
+  document.getElementById("ExpressionNumberBtnHideDetails").disabled = false;
+});
+
+$("#ExpressionNumberBtnShowDetails").click(function () {
+  document.getElementById("ExpressionNumberDiv").style.visibility = "visible";
+  document.getElementById("ExpressionNumberBtnShowDetails").disabled = true;
+  document.getElementById("ExpressionNumberBtnHideDetails").disabled = false;
+});
+
+$("#ExpressionNumberBtnHideDetails").click(function () {
+  document.getElementById("ExpressionNumberDiv").style.visibility = "hidden";
+  document.getElementById("ExpressionNumberBtnShowDetails").disabled = false;
+  document.getElementById("ExpressionNumberBtnHideDetails").disabled = true;
 });
 
 $("#SoulUrgeBtn").click(function () {
@@ -122,6 +150,20 @@ $("#SoulUrgeBtn").click(function () {
   div.appendChild(lifepathP);
 
   GenerateNumerlogyTarotDiv("Soul Urge Number", element, div);
+
+  document.getElementById("SoulUrgeBtnHideDetails").disabled = false;
+});
+
+$("#SoulUrgeBtnShowDetails").click(function () {
+  document.getElementById("SoulUrgeNumber").style.visibility = "visible";
+  document.getElementById("SoulUrgeBtnShowDetails").disabled = true;
+  document.getElementById("SoulUrgeBtnHideDetails").disabled = false;
+});
+
+$("#SoulUrgeBtnHideDetails").click(function () {
+  document.getElementById("SoulUrgeNumber").style.visibility = "hidden";
+  document.getElementById("SoulUrgeBtnShowDetails").disabled = false;
+  document.getElementById("SoulUrgeBtnHideDetails").disabled = true;
 });
 
 $("#PersonalityNumberBtn").click(function () {
@@ -144,6 +186,20 @@ $("#PersonalityNumberBtn").click(function () {
   div.appendChild(lifepathP);
 
   GenerateNumerlogyTarotDiv("Personality Number", element, div);
+
+  document.getElementById("PersonalityNumberBtnHideDetails").disabled = false;
+});
+
+$("#PersonalityNumberBtnShowDetails").click(function () {
+  document.getElementById("PersonalityNumberDiv").style.visibility = "visible";
+  document.getElementById("PersonalityNumberBtnShowDetails").disabled = true;
+  document.getElementById("PersonalityNumberBtnHideDetails").disabled = false;
+});
+
+$("#PersonalityNumberBtnHideDetails").click(function () {
+  document.getElementById("PersonalityNumberDiv").style.visibility = "hidden";
+  document.getElementById("PersonalityNumberBtnShowDetails").disabled = false;
+  document.getElementById("PersonalityNumberBtnHideDetails").disabled = true;
 });
 
 $("#BirthdayNumberBtn").click(function () {
@@ -167,6 +223,19 @@ $("#BirthdayNumberBtn").click(function () {
   div.appendChild(lifepathP);
 
   GenerateNumerlogyTarotDiv("Birthday Number", elementToDisplay, div);
+  document.getElementById("BirthdayNumberBtnHideDetails").disabled = false;
+});
+
+$("#BirthdayNumberBtnShowDetails").click(function () {
+  document.getElementById("BirthdayNumberDiv").style.visibility = "visible";
+  document.getElementById("BirthdayNumberBtnShowDetails").disabled = true;
+  document.getElementById("BirthdayNumberBtnHideDetails").disabled = false;
+});
+
+$("#BirthdayNumberBtnHideDetails").click(function () {
+  document.getElementById("BirthdayNumberDiv").style.visibility = "hidden";
+  document.getElementById("BirthdayNumberBtnShowDetails").disabled = false;
+  document.getElementById("BirthdayNumberBtnHideDetails").disabled = true;
 });
 
 //the life path number
