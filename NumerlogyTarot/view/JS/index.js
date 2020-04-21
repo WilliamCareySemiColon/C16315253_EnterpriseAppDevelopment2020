@@ -1,11 +1,11 @@
 /**********************************************************************************************************
  * The login section of the index.html page for the button and other functionality handlers
  **********************************************************************************************************/
-$("#RegisterInsteadBtn").click(function () {
-  ClearLoginDetails();
-  $("#Register").show();
-  $("#Login").hide();
-});
+// $("#RegisterInsteadBtn").click(function () {
+//   ClearLoginDetails();
+//   $("#Register").show();
+//   $("#Login").hide();
+// });
 
 $("#LoginClearBtn").click(function () {
   ClearLoginDetails();
@@ -62,11 +62,12 @@ function ClearLoginDetails() {
  * The register buttons div section functionality
  ************************************************************************************/
 //register button fields instead
-$("#LoginInsteadBtn").click(function () {
-  ClearRegisterDetails();
-  $("#Login").show();
-  $("#Register").hide();
-});
+// $("#LoginInsteadBtn").click(function () {
+//   ClearRegisterDetails();
+//   alert("login instead button clicked");
+//   $("#Register").hide();
+//   $("#Login").show();
+// });
 
 $("#RegisterClearBtn").click(function () {
   ClearRegisterDetails();
@@ -98,6 +99,8 @@ $("#RegisterBtn").click(function () {
       username: reguname,
       password: regpass,
     };
+
+    console.log(data);
 
     var registerData = {
       username: reguname,

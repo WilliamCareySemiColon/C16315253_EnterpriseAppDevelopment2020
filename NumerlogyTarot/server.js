@@ -188,7 +188,9 @@ app.post("/checkuserdetails", function (req, res) {
   var sess = req.session;
   var StableDocs;
 
-  var password = req.body.password;
+  console.log(req.body);
+
+  var password = "";
 
   users.find({ username: req.body.username }, function (err, docs) {
     if (err) {
@@ -202,15 +204,22 @@ app.post("/checkuserdetails", function (req, res) {
         sess.mname = StableDocs[0].middlename;
         sess.surname = StableDocs[0].surname;
         sess.DOB = StableDocs[0].DOB;
+
+        password = req.body.password;
       }
 
       console.log(sess);
+      var docPass = "";
 
-      console.log(StableDocs[0].password);
+      if (StableDocs[0] !== undefined) {
+        docPass = StableDocs[0].password;
+      }
+
+      //console.log(StableDocs[0].password);
 
       var ReturnDocs = docs;
 
-      bcrypt.compare(password, StableDocs[0].password).then(function (result) {
+      bcrypt.compare(password, docPass).then(function (result) {
         console.log(result);
         if (result) {
           ReturnDocs[0].password = req.body.password;
